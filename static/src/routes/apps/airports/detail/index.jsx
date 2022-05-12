@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import Divider from '../../../../components/divider'
+import LoadingSpinner from '../../../../components/loading-spinner'
 import ErrorDialog from '../../../../components/error-dialog'
 
 import apiClient from '../../../../networking/api-client'
@@ -9,6 +10,7 @@ import apiClient from '../../../../networking/api-client'
 import './index.scss'
 
 const Detail = () => {
+  const [loading, setLoading] = useState(true)
   const [errored, setErrored] = useState(false)
   const [data, setData] = useState({})
 
@@ -23,7 +25,12 @@ const Detail = () => {
     }
 
     setData(result.data)
+    setLoading(false)
   }, [])
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
 
   if (errored) {
     return <ErrorDialog />
