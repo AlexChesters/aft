@@ -215,7 +215,7 @@ const ChecklistForm = (props) => {
       </Form.Group>
       {Sections()}
       <Form.Label className='create--form label label__title'>Notes</Form.Label>
-      <Form.Group>
+      <Form.Group className='create--form notes'>
         <Form.Control
           as='textarea'
           id='notes'
