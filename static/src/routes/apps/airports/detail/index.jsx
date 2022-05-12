@@ -12,6 +12,7 @@ import './index.scss'
 const Detail = () => {
   const [loading, setLoading] = useState(true)
   const [errored, setErrored] = useState(false)
+  const [unknownAirport, setUnknownAirport] = useState(false)
   const [data, setData] = useState({})
 
   const { identifier } = useParams()
@@ -19,8 +20,16 @@ const Detail = () => {
   useEffect(async () => {
     const result = await apiClient.airports.search(identifier)
 
+    console.log('res', result)
+
     if (result.error) {
-      setErrored(true)
+      if (result.status === 404) {
+        setUnknownAirport(true)
+        setLoading(false)
+      } else {
+        setErrored(true)
+        setLoading(false)
+      }
       return
     }
 
@@ -34,6 +43,14 @@ const Detail = () => {
 
   if (errored) {
     return <ErrorDialog />
+  }
+
+  if (unknownAirport) {
+    return (
+      <section className='detail-container'>
+        <h1 className='detail__title'>Unknown airport</h1>
+      </section>
+    )
   }
 
   if (!Object.keys(data).length) return null

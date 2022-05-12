@@ -4,6 +4,8 @@ const airportData = require('../../../data/airports.json')
 module.exports = async (req, res) => {
   const result = airportData.find(({ identifier }) => identifier === req.params.identifier.toUpperCase())
 
+  if (!result) return res.sendStatus(404)
+
   const response = await fetch(
     `https://avwx.rest/api/metar/${req.params.identifier.toUpperCase()}?options=info,summary,speech`,
     {
