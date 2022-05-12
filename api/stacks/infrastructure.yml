@@ -1,0 +1,355 @@
+Description: Infrastructure for aft-api
+Parameters:
+  ImageVersion:
+    Description: The version of the ECR image to deployment
+    Type: String
+    Default: 7c6cb8049a8aad0fdfeeaf6964fb9f7936cf7cec
+  MetricNamespace:
+    Description: The namespace where CloudWatch metrics are stored
+    Type: String
+    Default: aft-live
+Resources:
+  Repository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: aft-api
+      LifecyclePolicy:
+        LifecyclePolicyText: |
+          {
+            "rules": [
+              {
+                "rulePriority": 1,
+                "description": "Only keep 5 images",
+                "selection": {
+                  "tagStatus": "any",
+                  "countType": "imageCountMoreThan",
+                  "countNumber": 5
+                },
+                "action": { "type": "expire" }
+              }
+            ]
+          }
+  Cluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: aft-api-cluster
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    DependsOn: Repository
+    Properties:
+      Cpu: 256
+      Memory: 512
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !ImportValue core-infrastructure-global-ecs-execution-role
+      TaskRoleArn: !Ref IAMRole
+      NetworkMode: awsvpc
+      ContainerDefinitions:
+        - Name: aft-api
+          Image: !Sub "008356366354.dkr.ecr.eu-west-1.amazonaws.com/aft-api:${ImageVersion}"
+          Environment:
+            - Name: NODE_ENV
+              Value: production
+          PortMappings:
+            - ContainerPort: 80
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-region: !Ref AWS::Region
+              awslogs-group: !Ref LogGroup
+              awslogs-stream-prefix: ecs
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref Cluster
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 100
+      TaskDefinition: !Ref TaskDefinition
+      LaunchType: FARGATE
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          Subnets:
+            - !ImportValue core-infrastructure-eu-west-1-public-subnet-one-id
+            - !ImportValue core-infrastructure-eu-west-1-public-subnet-two-id
+          SecurityGroups:
+            - !Ref ContainerSecurityGroup
+      LoadBalancers:
+        - ContainerName: aft-api
+          ContainerPort: 80
+          TargetGroupArn: !Ref TargetGroup
+      PropagateTags: SERVICE
+  TestChecklistTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: UserIdentifier
+          AttributeType: S
+      KeySchema:
+        - AttributeName: UserIdentifier
+          KeyType: HASH
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      TableName: aft-test-table
+  ChecklistTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: UserIdentifier
+          AttributeType: S
+      KeySchema:
+        - AttributeName: UserIdentifier
+          KeyType: HASH
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      TableName: aft-live-table
+  TestSessionTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: Identifier
+          AttributeType: S
+      KeySchema:
+        - AttributeName: Identifier
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      TableName: aft-test-session-table
+      TimeToLiveSpecification:
+        AttributeName: expires
+        Enabled: true
+  SessionTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: Identifier
+          AttributeType: S
+      KeySchema:
+        - AttributeName: Identifier
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      TableName: aft-live-session-table
+      TimeToLiveSpecification:
+        AttributeName: expires
+        Enabled: true
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: aft-live-logs
+      RetentionInDays: 7
+  IAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+      Policies:
+        - PolicyName: dynamodb-policy
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:Query
+                Resource:
+                  - !GetAtt ChecklistTable.Arn
+                  - !GetAtt TestChecklistTable.Arn
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:DeleteItem
+                  - dynamodb:Scan
+                  - dynamodb:DescribeTable
+                Resource:
+                  - !GetAtt SessionTable.Arn
+                  - !GetAtt TestSessionTable.Arn
+        - PolicyName: cloudwatch-policy
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub "arn:aws:logs:eu-west-1:008356366354:log-group:${LogGroup}/*"
+        - PolicyName: ssm-policy
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:GetParameter
+                Resource:
+                  - arn:aws:ssm:eu-west-1:008356366354:parameter/aft-session-secret
+                  - arn:aws:ssm:eu-west-1:008356366354:parameter/aft-auth0-client-secret
+                  - arn:aws:ssm:eu-west-1:008356366354:parameter/aft-avwx-secret
+  ContainerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: security group for aft-api container
+      SecurityGroupEgress:
+        - IpProtocol: "-1"
+          ToPort: -1
+          FromPort: -1
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          ToPort: 80
+          FromPort: 80
+          CidrIp: 0.0.0.0/0
+      VpcId: !ImportValue core-infrastructure-eu-west-1-vpc-id
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: 15
+      HealthCheckPath: /aft/status
+      HealthCheckTimeoutSeconds: 3
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 3
+      Port: 80
+      Protocol: HTTP
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: "5"
+      TargetType: ip
+      VpcId: !ImportValue core-infrastructure-eu-west-1-vpc-id
+  ListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      Actions:
+        - TargetGroupArn: !Ref TargetGroup
+          Type: forward
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - "/aft/*"
+      ListenerArn: !ImportValue api-edge-infrastructure-listener-arn
+      Priority: 3
+  2xxCountMetricFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      LogGroupName: !Ref LogGroup
+      FilterPattern: '[date, request != "GET /aft/status HTTP/1.1", status >= 200 && status < 300]'
+      MetricTransformations:
+        - MetricName: aft-2xx-count
+          MetricNamespace: !Ref MetricNamespace
+          MetricValue: "1"
+  4xxCountMetricFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      LogGroupName: !Ref LogGroup
+      FilterPattern: "[date, request, status >= 400 && status < 500]"
+      MetricTransformations:
+        - MetricName: aft-4xx-count
+          MetricNamespace: !Ref MetricNamespace
+          MetricValue: "1"
+  3xxCountMetricFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      LogGroupName: !Ref LogGroup
+      FilterPattern: "[date, request, status >= 300 && status < 400]"
+      MetricTransformations:
+        - MetricName: aft-3xx-count
+          MetricNamespace: !Ref MetricNamespace
+          MetricValue: "1"
+  5xxCountMetricFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      LogGroupName: !Ref LogGroup
+      FilterPattern: "[date, request, status >= 500]"
+      MetricTransformations:
+        - MetricName: aft-5xx-count
+          MetricNamespace: !Ref MetricNamespace
+          MetricValue: "1"
+  Dashboard:
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: aft-live
+      DashboardBody: >
+        {
+          "widgets": [
+            {
+              "type": "metric",
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 6,
+              "properties": {
+                "region": "eu-west-1",
+                "period": 300,
+                "title": "API Requests",
+                "metrics": [
+                  [
+                    "aft-live",
+                    "aft-2xx-count",
+                    {
+                      "stat": "Sum",
+                      "color": "#5bd643"
+                    }
+                  ],
+                  [
+                    "aft-live",
+                    "aft-3xx-count",
+                    {
+                      "stat": "Sum",
+                      "color": "#3681e2"
+                    }
+                  ],
+                  [
+                    "aft-live",
+                    "aft-4xx-count",
+                    {
+                      "stat": "Sum",
+                      "color": "#000000"
+                    }
+                  ],
+                  [
+                    "aft-live",
+                    "aft-5xx-count",
+                    {
+                      "stat": "Sum",
+                      "color": "#f61313"
+                    }
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+  Auth0SESUser:
+    Type: AWS::IAM::User
+    Properties:
+      Policies:
+        - PolicyName: ses-policy
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ses:SendRawEmail
+                  - ses:SendEmail
+                Resource:
+                  - "*"

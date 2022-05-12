@@ -1,0 +1,37 @@
+@import '../../styles/colors.scss';
+
+.skeleton {
+  width: 100%;
+
+  & .aft--navbar {
+    margin-left: 10px;
+  }
+
+  & .aft--navbar-toggler {
+    margin-left: 10px;
+  }
+
+  & .navbar--brand {
+    width: 30px;
+    height: 30px;
+    border-radius: 65%;
+    border: 1.5px solid white;
+  }
+
+  .navbar--item,
+  .dropdown-toggle {
+    color: map-get($map: $colors, $key: white) !important;
+    background: none;
+    border: none;
+
+    &:hover {
+      color: lighten(rgba(map-get($map: $colors, $key: white), 0.5), 30%) !important;
+      background: none;
+      border: none;
+    }
+  }
+
+  & .navbar--right-align {
+    margin-left: auto;
+  }
+}

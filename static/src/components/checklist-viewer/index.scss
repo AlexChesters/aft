@@ -1,0 +1,53 @@
+@import '../../styles/variables.scss';
+@import '../../styles/colors.scss';
+
+.checklist-viewer {
+  & .button {
+    @media screen and (max-width: map-get($map: $variables, $key: break-large)) {
+      float: none;
+      margin-bottom: 1.25em;
+    }
+
+    float: right;
+  }
+
+  & .button:not(:first-of-type) {
+    @media screen and (max-width: map-get($map: $variables, $key: break-large)) {
+      margin-left: 10px;
+    }
+
+    @media screen and (min-width: map-get($map: $variables, $key: break-large)) {
+      margin-right: 10px;
+    }
+  }
+
+  &__page-title {
+    font-size: xxx-large;
+  }
+
+  &--section {
+    .card-header {
+      color: map-get($map: $colors, $key: green);
+      font-size: x-large;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .card-body {
+      padding: 1.25em 0 0 1.25em;
+      font-size: larger;
+
+      & p {
+        width: 90%;
+        box-sizing: border-box;
+        border-bottom: 1px solid black;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

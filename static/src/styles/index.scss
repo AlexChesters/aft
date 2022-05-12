@@ -1,0 +1,54 @@
+@import '~bootstrap/scss/bootstrap';
+@import './colors.scss';
+
+body {
+  font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+}
+
+.hidden {
+  visibility: hidden !important;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.clickable {
+  text-decoration: underline;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.green-color {
+  color: map-get($map: $colors, $key: green);
+}
+
+h1,
+h2,
+h3 {
+  color: map-get($map: $colors, $key: green);
+}
+
+a {
+  color: map-get($map: $colors, $key: blue);
+}
+
+.button {
+  background-color: map-get($map: $colors, $key: green);
+  border: none;
+
+  &:hover {
+    background-color: darken(map-get($map: $colors, $key: green), 20%);
+  }
+}

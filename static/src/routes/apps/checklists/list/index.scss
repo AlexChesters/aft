@@ -1,0 +1,40 @@
+@import '../../../../styles/colors.scss';
+@import '../../../../styles/variables.scss';
+
+.checklists {
+  text-align: center;
+  margin-top: 10px;
+
+  &--table {
+    @media screen and (max-width: map-get($map: $variables, $key: break-large)) {
+      border-spacing: 10px 0;
+    }
+
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 20px 0;
+    padding-top: 3em;
+
+    &__aircraft-title-cell {
+      border-bottom: 1px solid map-get($map: $colors, $key: green);
+    }
+
+    &__aircraft-title {
+      color: map-get($map: $colors, $key: green);
+      font-size: xx-large;
+
+      &:hover {
+        color: darken(map-get($map: $colors, $key: green), 20%);
+      }
+    }
+
+    &__button-cell {
+      border-bottom: 1px solid map-get($map: $colors, $key: green);
+      vertical-align: middle;
+    }
+  }
+
+  &--create {
+    margin-top: 10px;
+  }
+}

@@ -1,0 +1,15 @@
+@import '../../../styles/colors.scss';
+
+.challenge {
+  text-align: center;
+
+  a {
+    line-height: 100vh;
+    font-size: xx-large;
+    color: map-get($map: $colors, $key: green);
+
+    &:hover {
+      color: darken(map-get($map: $colors, $key: green), 20%);
+    }
+  }
+}

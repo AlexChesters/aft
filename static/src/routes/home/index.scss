@@ -1,0 +1,10 @@
+@import '../../styles/colors.scss';
+
+.home--container {
+  margin: 1em auto;
+  width: 80%;
+
+  & .jumbotron {
+    margin-bottom: 0;
+  }
+}

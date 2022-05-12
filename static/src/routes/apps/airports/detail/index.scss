@@ -1,0 +1,24 @@
+.detail-container {
+  margin: 1em auto;
+  width: 80%;
+
+  .detail {
+    &__title {
+      font-size: xxx-large;
+    }
+
+    &__subtitle {
+      font-size: xx-large;
+    }
+
+    &-section {
+      &__title {
+        font-size: x-large;
+      }
+
+      &__subtitle {
+        font-size: large;
+      }
+    }
+  }
+}

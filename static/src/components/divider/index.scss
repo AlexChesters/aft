@@ -1,0 +1,8 @@
+@import '../../styles/colors.scss';
+
+.divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 3px solid map-get($map: $colors, $key: dark-grey);
+}

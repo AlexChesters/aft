@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - cd api
+      - npm ci
+      - npm test
+      - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 008356366354.dkr.ecr.eu-west-1.amazonaws.com
+      - docker build --build-arg var_name=${CODEBUILD_RESOLVED_SOURCE_VERSION} -t "alexchesters/aft-api:$CODEBUILD_RESOLVED_SOURCE_VERSION" .
+      - docker tag "alexchesters/aft-api:$CODEBUILD_RESOLVED_SOURCE_VERSION" "008356366354.dkr.ecr.eu-west-1.amazonaws.com/aft-api:$CODEBUILD_RESOLVED_SOURCE_VERSION"
+      - docker push "008356366354.dkr.ecr.eu-west-1.amazonaws.com/aft-api:$CODEBUILD_RESOLVED_SOURCE_VERSION"

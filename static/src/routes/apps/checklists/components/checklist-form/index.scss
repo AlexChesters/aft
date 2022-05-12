@@ -1,0 +1,30 @@
+@import '../../../../../styles/index.scss';
+
+.create--form {
+  .label {
+    color: map-get($map: $colors, $key: green);
+    width: 100%;
+
+    &__title {
+      font-size: x-large;
+    }
+
+    &__info {
+      font-size: medium;
+    }
+  }
+
+  .select {
+    display: inline;
+    width: 90%;
+
+    &__right-aligned {
+      width: 4%;
+      float: right;
+    }
+  }
+
+  button:last-of-type {
+    float: right;
+  }
+}

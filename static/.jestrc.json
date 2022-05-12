@@ -1,0 +1,10 @@
+{
+  "moduleNameMapper": {
+    "scss$": "identity-obj-proxy"
+  },
+  "setupFiles": [
+    "jest-fetch-mock",
+    "jest-localstorage-mock"
+  ],
+  "testEnvironment": "jsdom"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "aft",
+  "short_name": "aft",
+  "display": "standalone",
+  "scope": "https://projects.alexchesters.com/aft/",
+  "start_url": "https://projects.alexchesters.com/aft/",
+  "icons": [
+    {
+      "src": "/aft/img/apple-touch-icon.png",
+      "sizes": "192x192"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+@import '../../../../styles/variables.scss';
+
+.checklist {
+  @media screen and (max-width: map-get($map: $variables, $key: break-large)) {
+    width: 90%;
+  }
+
+  margin: 1em auto;
+  width: 80%;
+}
