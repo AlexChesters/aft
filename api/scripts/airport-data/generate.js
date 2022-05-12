@@ -155,7 +155,7 @@ const airports = airportsData.map((item) => {
 })
 
 fs.writeFileSync(
-  path.join(__dirname, '../../', 'src/routes/apps/airport-info/data/airports.json'),
+  path.join(__dirname, '../../', 'src/data/airports.json'),
   JSON.stringify(airports),
   'utf8'
 )
