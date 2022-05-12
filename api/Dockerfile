@@ -1,4 +1,4 @@
-FROM 008356366354.dkr.ecr.eu-west-1.amazonaws.com/nodejs:4104de19254d05f05f9662057e7ee579614db2cf
+FROM 008356366354.dkr.ecr.eu-west-1.amazonaws.com/nodejs:9cabc90420ba3fa2e806c79d9c8810d96ce0ce07
 
 ARG APP_VERSION
 ENV APP_VERSION=$APP_VERSION
