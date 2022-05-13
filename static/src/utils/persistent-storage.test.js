@@ -8,6 +8,26 @@ describe('persistent storage', () => {
     jest.clearAllMocks()
   })
 
+  describe('auth', () => {
+    const auth = persistentStorage.auth
+
+    describe('set', () => {
+      it('should allow access token to be set', () => {
+        auth.set('accessToken', 'my-token')
+
+        expect(window.localStorage.setItem).toHaveBeenCalledWith('aft_AUTH', JSON.stringify({ accessToken: 'my-token' }))
+      })
+    })
+
+    describe('get', () => {
+      it('should allow access token to be get', () => {
+        auth.set('accessToken', 'my-token')
+
+        expect(auth.get('accessToken')).toEqual('my-token')
+      })
+    })
+  })
+
   describe('settings', () => {
     const storage = persistentStorage.settings
 
