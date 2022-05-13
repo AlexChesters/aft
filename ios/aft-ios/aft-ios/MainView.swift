@@ -13,7 +13,12 @@ struct MainView: View {
     var body: some View {
         VStack {
             if user.isAuthenticated {
-                Home()
+                TabView {
+                    Home()
+                        .tabItem {
+                            Label("Home", systemImage: "house")
+                        }
+                }
             } else {
                 Auth()
             }
