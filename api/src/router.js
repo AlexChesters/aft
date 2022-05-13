@@ -3,7 +3,7 @@ const express = require('express')
 const routes = {
   callback: require('./routes/callback'),
   status: require('./routes/status'),
-  authSuccess: require('./routes/auth-success')
+  signIn: require('./routes/sign-in')
 }
 
 const routers = {
@@ -37,8 +37,7 @@ module.exports = (passport) => {
   // authentication routes
   router.get('/login', middleware.cacheControl.noStore, middleware.returnTo, middleware.authenticate)
   router.get('/callback', middleware.cacheControl.noStore, routes.callback)
-  router.get('/auth-check', middleware.cacheControl.noStore, middleware.returnTo, middleware.authenticate)
-  router.get('/auth-success', middleware.cacheControl.noStore, routes.authSuccess)
+  router.post('/sign-in', middleware.cacheControl.noStore, routes.signIn)
 
   return router
 }

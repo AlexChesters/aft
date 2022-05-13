@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/alexchesters/aft#readme",
   "dependencies": {
+    "auth0": "^2.40.0",
     "aws-sdk": "^2.989.0",
     "body-parser": "^1.19.0",
     "connect-dynamodb": "^2.0.4",
