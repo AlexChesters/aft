@@ -2,7 +2,8 @@ const express = require('express')
 
 const routes = {
   status: require('./routes/status'),
-  signIn: require('./routes/sign-in')
+  signIn: require('./routes/sign-in'),
+  register: require('./routes/register')
 }
 
 const routers = {
@@ -46,6 +47,7 @@ module.exports = () => {
 
   // authentication routes
   router.post('/sign-in', middleware.cacheControl.noStore, routes.signIn)
+  router.post('/register', middleware.cacheControl.noStore, routes.register)
 
   // debugging routes
   router.post('/debug', middleware.cacheControl.noStore, middleware.ensureAuthenticated, (req, res) => res.sendStatus(200))
