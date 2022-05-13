@@ -40,11 +40,11 @@ describe('api client', () => {
     })
   })
 
-  describe('sign-in', () => {
+  describe('auth', () => {
     process.env.NODE_ENV = 'production'
     const apiClient = require('.').default
 
-    describe('list', () => {
+    describe('sign-in', () => {
       it('makes the appropriate request', async () => {
         nock('https://edge.alexchesters.com')
           .post(
@@ -57,6 +57,25 @@ describe('api client', () => {
           .reply(200, [{ foo: 'bar' }])
 
         const result = await apiClient.auth.signIn('billy@bob.com', 'hunter2')
+
+        expect(result.status).toEqual(200)
+        expect(result.data).toEqual([{ foo: 'bar' }])
+      })
+    })
+
+    describe('register', () => {
+      it('makes the appropriate request', async () => {
+        nock('https://edge.alexchesters.com')
+          .post(
+            '/aft/register',
+            {
+              username: 'billy@bob.com',
+              password: 'hunter2'
+            }
+          )
+          .reply(200, [{ foo: 'bar' }])
+
+        const result = await apiClient.auth.register('billy@bob.com', 'hunter2')
 
         expect(result.status).toEqual(200)
         expect(result.data).toEqual([{ foo: 'bar' }])

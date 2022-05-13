@@ -2,6 +2,10 @@
   margin: 1em auto;
   width: 80%;
 
+  & button:first-of-type {
+    margin-right: 15px;
+  }
+
   & button {
     margin-top: 10px;
   }

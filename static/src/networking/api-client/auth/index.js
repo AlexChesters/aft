@@ -7,5 +7,12 @@ export default {
       'content-type': 'application/json'
     },
     body: JSON.stringify({ username, password })
+  }),
+  register: async (username, password) => await apiUtils.post('/register', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({ username, password })
   })
 }
