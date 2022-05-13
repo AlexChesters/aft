@@ -9,15 +9,20 @@ module.exports = async (req, res, next) => {
     return res.sendStatus(401)
   }
 
-  const authenticationClient = new auth0.AuthenticationClient({
-    domain: config.auth0.domain,
-    clientId: config.auth0.clientId,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET
-  })
+  try {
+    const authenticationClient = new auth0.AuthenticationClient({
+      domain: config.auth0.domain,
+      clientId: config.auth0.clientId,
+      clientSecret: process.env.AUTH0_CLIENT_SECRET
+    })
 
-  const response = await authenticationClient.getProfile(accessToken)
+    const response = await authenticationClient.getProfile(accessToken)
 
-  req.user = { userId: response.sub }
+    req.user = { userId: response.sub }
+  } catch (ex) {
+    res.sendStatus(401)
+    return
+  }
 
   next()
 }
