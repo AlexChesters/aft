@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import KeychainSwift
 
 private struct SignInResponse: Decodable {
     let access_token: String
@@ -18,9 +19,16 @@ private struct SignInResponse: Decodable {
 class User: ObservableObject {
     @Published var isAuthenticated = false
     
+    init () {
+        let keychain = KeychainSwift()
+        
+        if keychain.get("access_token") != nil {
+            self.isAuthenticated = true
+        }
+    }
+    
     public func signIn(email: String, password: String) {
-//        let signInUrl = "https://edge.alexchesters.com/aft/sign-in"
-        let signInUrl = "http://localhost:8080/sign-in"
+        let signInUrl = "https://edge.alexchesters.com/aft/sign-in"
 
         AF.request(
             signInUrl,
@@ -41,7 +49,12 @@ class User: ObservableObject {
                 return
             }
             
-            print(response.access_token, response.id_token, response.expires_in)
+            let keychain = KeychainSwift()
+            keychain.set(response.access_token, forKey: "access_token")
+            keychain.set(response.id_token, forKey: "id_token")
+            keychain.set("\(response.expires_in)", forKey: "expires_in")
+            
+            self.isAuthenticated = true
         }
     }
     
