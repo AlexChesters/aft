@@ -40,6 +40,11 @@ module.exports = function (req, res, next) {
         path: '/aft/'
       })
 
+      if (returnTo && returnTo.startsWith('aft://')) {
+        res.redirect(`aft://callback?token=${req.user.accessToken}`)
+        return
+      }
+
       const defaultRedirectPath = isDevelopmentEnvironment
         ? 'http://localhost:8081/auth/success'
         : 'https://projects.alexchesters.com/aft/auth/success'
