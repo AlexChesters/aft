@@ -58,6 +58,12 @@ class User: ObservableObject {
         }
     }
     
+    public func signOut() {
+        let keychain = KeychainSwift()
+        
+        keychain.clear()
+    }
+    
     public func handleAuthCallback (url: URL) {
         var urlToParse = URLComponents(string: url.absoluteString)
         urlToParse?.query = nil

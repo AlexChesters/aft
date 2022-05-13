@@ -15,6 +15,7 @@
 		ACEE2998282ECCFC00D0DCD1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE2997282ECCFC00D0DCD1 /* User.swift */; };
 		ACEE299A282ECDDF00D0DCD1 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE2999282ECDDF00D0DCD1 /* Home.swift */; };
 		ACEE299C282ECDE700D0DCD1 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE299B282ECDE700D0DCD1 /* Auth.swift */; };
+		ACEE29A0282F0BC000D0DCD1 /* AccountManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE299F282F0BC000D0DCD1 /* AccountManagement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		ACEE2999282ECDDF00D0DCD1 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		ACEE299B282ECDE700D0DCD1 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		ACEE299D282ECE1600D0DCD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		ACEE299F282F0BC000D0DCD1 /* AccountManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagement.swift; sourceTree = "<group>"; };
 		B03594C1AF1FBA7949EDC37B /* Pods-aft-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aft-ios.release.xcconfig"; path = "Target Support Files/Pods-aft-ios/Pods-aft-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,7 +60,6 @@
 				680A3A1130058D0C5794C07E /* Pods-aft-ios.debug.xcconfig */,
 				B03594C1AF1FBA7949EDC37B /* Pods-aft-ios.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -107,6 +108,7 @@
 			children = (
 				ACEE2999282ECDDF00D0DCD1 /* Home.swift */,
 				ACEE299B282ECDE700D0DCD1 /* Auth.swift */,
+				ACEE299F282F0BC000D0DCD1 /* AccountManagement.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -235,6 +237,7 @@
 			files = (
 				ACEE299C282ECDE700D0DCD1 /* Auth.swift in Sources */,
 				ACEE298A282ECCA800D0DCD1 /* MainView.swift in Sources */,
+				ACEE29A0282F0BC000D0DCD1 /* AccountManagement.swift in Sources */,
 				ACEE2988282ECCA800D0DCD1 /* aft_iosApp.swift in Sources */,
 				ACEE299A282ECDDF00D0DCD1 /* Home.swift in Sources */,
 				ACEE2998282ECCFC00D0DCD1 /* User.swift in Sources */,

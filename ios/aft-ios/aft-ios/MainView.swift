@@ -16,7 +16,17 @@ struct MainView: View {
                 TabView {
                     Home()
                         .tabItem {
-                            Label("Home", systemImage: "house")
+                            Label(
+                                "Home",
+                                systemImage: "house"
+                            )
+                        }
+                    AccountManagement()
+                        .tabItem {
+                            Label(
+                                "Account",
+                                systemImage: "person.crop.circle.fill"
+                            )
                         }
                 }
             } else {
