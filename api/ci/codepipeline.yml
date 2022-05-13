@@ -1,4 +1,9 @@
 Description: Pipeline for aft-api
+Parameters:
+  Branch:
+    Type: String
+    Description: the git branch to build
+    Default: main
 Resources:
   BuildCodeBuildRole:
     Type: AWS::IAM::Role
@@ -74,7 +79,7 @@ Resources:
               Configuration:
                 ConnectionArn: !ImportValue core-infrastructure-eu-west-1-codestar-github-connection-arn
                 FullRepositoryId: AlexChesters/aft
-                BranchName: main
+                BranchName: !Ref Branch
                 OutputArtifactFormat: CODE_ZIP
         - Name: Pre-Deploy
           Actions:
