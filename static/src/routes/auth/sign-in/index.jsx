@@ -11,7 +11,7 @@ import './index.scss'
 
 const auth = persistentStorage.auth
 
-const AuthenticationChallenge = (props) => {
+const SignIn = (props) => {
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
 
@@ -38,7 +38,7 @@ const AuthenticationChallenge = (props) => {
   }
 
   return (
-    <Form onSubmit={onSubmit} className='auth-challenge--container'>
+    <Form onSubmit={onSubmit} className='sign-in--container'>
       <Form.Group>
         <Form.Label>Email address</Form.Label>
         <Form.Control
@@ -63,8 +63,8 @@ const AuthenticationChallenge = (props) => {
   )
 }
 
-AuthenticationChallenge.propTypes = {
+SignIn.propTypes = {
   returnToPath: propTypes.string
 }
 
-export default AuthenticationChallenge
+export default SignIn
