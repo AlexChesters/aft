@@ -18,5 +18,5 @@ module.exports = async (req, res, next) => {
 
   const response = await authenticationClient.oauth.passwordGrant(data)
 
-  res.json({ response })
+  res.json(response)
 }
