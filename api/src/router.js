@@ -19,11 +19,9 @@ const middleware = {
   ensureAuthenticated: require('./middleware/ensure-authenticated')
 }
 
-module.exports = (passport) => {
+module.exports = () => {
   const router = express.Router()
 
-  router.use(passport.initialize())
-  router.use(passport.session())
   router.use(middleware.accessLogging, middleware.version)
 
   router.get('/status', middleware.cacheControl.noStore, routes.status)
