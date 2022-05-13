@@ -26,6 +26,17 @@ describe('persistent storage', () => {
         expect(auth.get('accessToken')).toEqual('my-token')
       })
     })
+
+    describe('clear', () => {
+      it('should allow all values to be cleared', () => {
+        auth.set('accessToken', 'my-token')
+        auth.set('amelia', 'earhart')
+        auth.clear()
+
+        expect(auth.get('accessToken')).toEqual(undefined)
+        expect(auth.get('amelia')).toEqual(undefined)
+      })
+    })
   })
 
   describe('settings', () => {

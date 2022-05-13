@@ -54,6 +54,12 @@ const Skeleton = (props) => {
             >
               Help
             </Nav.Link>
+            <Nav.Link
+              className='navbar--item'
+              href={`${basePath}/sign-out`}
+            >
+              Sign out
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -7,6 +7,7 @@ import PageSkeleton from './components/page-skeleton'
 import ProtectedRoute from './protected-route'
 import AuthChallenge from './routes/auth/challenge'
 import AuthSuccess from './routes/auth/success'
+import AuthSignOut from './routes/auth/sign-out'
 import Home from './routes/home'
 import Help from './routes/help'
 
@@ -28,6 +29,7 @@ export default function router () {
         <Route exact path='/auth/success' render={() => <AuthSuccess />} />
         <ProtectedRoute exact path='/' component={Home} />
         <ProtectedRoute exact path='/help' component={Help} />
+        <ProtectedRoute exact path='/sign-out' component={AuthSignOut} />
         <ProtectedRoute path='/airports' component={Airports} />
         <ProtectedRoute path='/checklists' component={Checklists} />
         <ProtectedRoute path='/calculators-converters-and-generators' component={CalculatorsConvertersAndGenerators} />

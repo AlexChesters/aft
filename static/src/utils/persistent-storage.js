@@ -26,6 +26,9 @@ const getStorage = (localStorageKey) => {
         localStorageKey,
         JSON.stringify(settings)
       )
+    },
+    clear: () => {
+      window.localStorage.setItem(localStorageKey, JSON.stringify({}))
     }
   }
 }
