@@ -15,6 +15,14 @@ const AuthenticationChallenge = (props) => {
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
 
+  let returnTo = `${window.location.protocol + '//' + window.location.host}`
+
+  props.returnToPath
+    ? returnTo += props.returnToPath
+    : returnTo += '/aft/'
+
+  if (!returnTo.endsWith('/')) returnTo += '/'
+
   const onSubmit = async (evt) => {
     evt.preventDefault()
 
@@ -25,6 +33,8 @@ const AuthenticationChallenge = (props) => {
 
     auth.set('accessToken', response.data.access_token)
     auth.set('expiresIn', date.toISOString())
+
+    window.location = returnTo
   }
 
   return (

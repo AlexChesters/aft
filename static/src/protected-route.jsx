@@ -4,12 +4,26 @@ import PropTypes from 'prop-types'
 
 import PageSkeleton from './components/page-skeleton'
 import AuthChallenge from './routes/auth/challenge'
+import persistentStorage from './utils/persistent-storage'
+
+const auth = persistentStorage.auth
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
+  let authenticated = false
+
+  const token = auth.get('accessToken')
+  const expires = new Date(auth.get('expiresIn'))
+
+  // consider tokens due to expire within 1 hour as expired
+  expires.setHours(expires.getHours() - 1)
+
+  if (token && (new Date() <= expires)) {
+    authenticated = true
+  }
+
   // for some reason eslint didn't like the intendation of this function (hence
   // the eslint-disable-line's)
-  console.log('cookie', document.cookie)
-  return document.cookie.includes('logged_in=true')
+  return authenticated
     ? (
       <Route {...rest} render={(props) => (
         <PageSkeleton>
