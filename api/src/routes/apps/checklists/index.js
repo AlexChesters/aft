@@ -8,14 +8,14 @@ const routes = {
   update: require('./update')
 }
 
-module.exports = (middleware) => {
+module.exports = () => {
   const router = express.Router()
 
-  router.post('/update', middleware.cacheControl.noStore, routes.update)
-  router.get('/list', middleware.cacheControl.noStore, routes.list)
-  router.get('/get/:identifier', middleware.cacheControl.noStore, routes.get)
-  router.post('/duplicate', middleware.cacheControl.noStore, routes.duplicate)
-  router.post('/delete', middleware.cacheControl.noStore, routes.delete)
+  router.post('/update', routes.update)
+  router.get('/list', routes.list)
+  router.get('/get/:identifier', routes.get)
+  router.post('/duplicate', routes.duplicate)
+  router.post('/delete', routes.delete)
 
   return router
 }

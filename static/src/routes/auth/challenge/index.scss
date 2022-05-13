@@ -1,15 +1,8 @@
-@import '../../../styles/colors.scss';
+.auth-challenge--container {
+  margin: 1em auto;
+  width: 80%;
 
-.challenge {
-  text-align: center;
-
-  a {
-    line-height: 100vh;
-    font-size: xx-large;
-    color: map-get($map: $colors, $key: green);
-
-    &:hover {
-      color: darken(map-get($map: $colors, $key: green), 20%);
-    }
+  & button {
+    margin-top: 10px;
   }
 }

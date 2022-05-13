@@ -4,14 +4,10 @@ const routes = {
   list: require('./list')
 }
 
-module.exports = (middleware) => {
+module.exports = () => {
   const router = express.Router()
 
-  router.get(
-    '/list',
-    middleware.cacheControl.fiveMinutes,
-    routes.list
-  )
+  router.get('/list', routes.list)
 
   return router
 }
