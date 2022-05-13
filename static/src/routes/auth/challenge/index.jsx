@@ -5,8 +5,11 @@ import Button from 'react-bootstrap/Button'
 import propTypes from 'prop-types'
 
 import apiClient from '../../../networking/api-client'
+import persistentStorage from '../../../utils/persistent-storage'
 
 import './index.scss'
+
+const auth = persistentStorage.auth
 
 const AuthenticationChallenge = (props) => {
   const [email, setEmail] = useState(null)
@@ -16,7 +19,12 @@ const AuthenticationChallenge = (props) => {
     evt.preventDefault()
 
     const response = await apiClient.auth.signIn(email, password)
-    console.log('sign in response', response)
+
+    const date = new Date()
+    date.setSeconds(date.getSeconds() + response.data.expires_in)
+
+    auth.set('accessToken', response.data.access_token)
+    auth.set('expiresIn', date.toISOString())
   }
 
   return (
