@@ -2,7 +2,7 @@ name: Static
 
 on:
   push:
-    branches: [main, ios-app]
+    branches: [main]
     paths-ignore:
       - "api/**"
       - "ios/**"
