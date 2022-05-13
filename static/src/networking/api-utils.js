@@ -16,13 +16,8 @@ const fetch = async (url, options) => {
   })
 }
 
-const get = async (path) => {
-  const res = await fetch(`${baseURL}${path}`, {
-    credentials: 'include',
-    headers: {
-      'access-control-allow-credentials': true
-    }
-  })
+const get = async (path, options) => {
+  const res = await fetch(`${baseURL}${path}`, options)
 
   const status = res.status
 

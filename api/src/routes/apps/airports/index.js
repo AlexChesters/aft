@@ -4,14 +4,10 @@ const routes = {
   search: require('./search')
 }
 
-module.exports = (middleware) => {
+module.exports = () => {
   const router = express.Router()
 
-  router.get(
-    '/search/:identifier',
-    middleware.cacheControl.oneDay,
-    routes.search
-  )
+  router.get('/search/:identifier', routes.search)
 
   return router
 }

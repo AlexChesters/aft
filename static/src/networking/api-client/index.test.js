@@ -40,6 +40,30 @@ describe('api client', () => {
     })
   })
 
+  describe('sign-in', () => {
+    process.env.NODE_ENV = 'production'
+    const apiClient = require('.').default
+
+    describe('list', () => {
+      it('makes the appropriate request', async () => {
+        nock('https://edge.alexchesters.com')
+          .post(
+            '/aft/sign-in',
+            {
+              username: 'billy@bob.com',
+              password: 'hunter2'
+            }
+          )
+          .reply(200, [{ foo: 'bar' }])
+
+        const result = await apiClient.auth.signIn('billy@bob.com', 'hunter2')
+
+        expect(result.status).toEqual(200)
+        expect(result.data).toEqual([{ foo: 'bar' }])
+      })
+    })
+  })
+
   describe('checklists', () => {
     process.env.NODE_ENV = 'production'
     const apiClient = require('.').default

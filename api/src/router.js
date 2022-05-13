@@ -1,9 +1,8 @@
 const express = require('express')
 
 const routes = {
-  callback: require('./routes/callback'),
   status: require('./routes/status'),
-  authSuccess: require('./routes/auth-success')
+  signIn: require('./routes/sign-in')
 }
 
 const routers = {
@@ -15,30 +14,41 @@ const routers = {
 const middleware = {
   accessLogging: require('./middleware/access-logging'),
   returnTo: require('./middleware/return-to'),
-  authenticate: require('./middleware/authenticate'),
   cacheControl: require('./middleware/cache-control'),
-  version: require('./middleware/version')
+  version: require('./middleware/version'),
+  ensureAuthenticated: require('./middleware/ensure-authenticated')
 }
 
-module.exports = (passport) => {
+module.exports = () => {
   const router = express.Router()
 
-  router.use(passport.initialize())
-  router.use(passport.session())
   router.use(middleware.accessLogging, middleware.version)
 
   router.get('/status', middleware.cacheControl.noStore, routes.status)
 
   // routers
-  router.use('/checklists', routers.checklists(middleware))
-  router.use('/airports', middleware.cacheControl.fiveMinutes, routers.airports(middleware))
-  router.use('/aircraft', middleware.cacheControl.fiveMinutes, routers.aircraft(middleware))
+  router.use(
+    '/checklists',
+    middleware.cacheControl.noStore,
+    middleware.ensureAuthenticated,
+    routers.checklists()
+  )
+  router.use(
+    '/airports',
+    middleware.cacheControl.fiveMinutes,
+    routers.airports()
+  )
+  router.use(
+    '/aircraft',
+    middleware.cacheControl.fiveMinutes,
+    routers.aircraft()
+  )
 
   // authentication routes
-  router.get('/login', middleware.cacheControl.noStore, middleware.returnTo, middleware.authenticate)
-  router.get('/callback', middleware.cacheControl.noStore, routes.callback)
-  router.get('/auth-check', middleware.cacheControl.noStore, middleware.returnTo, middleware.authenticate)
-  router.get('/auth-success', middleware.cacheControl.noStore, routes.authSuccess)
+  router.post('/sign-in', middleware.cacheControl.noStore, routes.signIn)
+
+  // debugging routes
+  router.post('/debug', middleware.cacheControl.noStore, middleware.ensureAuthenticated, (req, res) => res.sendStatus(200))
 
   return router
 }
