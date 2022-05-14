@@ -14,11 +14,11 @@ struct MainView: View {
         VStack {
             if user.isAuthenticated {
                 TabView {
-                    Home()
+                    Checklists()
                         .tabItem {
                             Label(
-                                "Home",
-                                systemImage: "house"
+                                "Checklists",
+                                systemImage: "checklist"
                             )
                         }
                     AccountManagement()
