@@ -20,6 +20,7 @@ struct Auth: View {
             TextField("Email address", text: $email)
                 .keyboardType(.emailAddress)
                 .disableAutocorrection(true)
+                .textInputAutocapitalization(.never)
             Divider()
             SecureField("Password", text: $password)
                 .disableAutocorrection(true)
