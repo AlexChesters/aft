@@ -15,7 +15,6 @@ private struct SignInResponse: Decodable {
     let expires_in: Int
 }
 
-
 class User: ObservableObject {
     @Published var isAuthenticated = false
     

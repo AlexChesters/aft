@@ -8,8 +8,28 @@
 import SwiftUI
 
 struct Checklists: View {
+    @EnvironmentObject var user: User
+    
+    @State private var checklists: [Checklist] = []
+    
     var body: some View {
-        Text("Hello, World!")
+        ScrollView {
+            VStack(alignment: .leading) {
+                if checklists.count == 0 {
+                    ProgressView().padding()
+                } else {
+                    ForEach(checklists) { checklist in
+                        Text(checklist.aircraft)
+                        Divider()
+                    }
+                }
+            }
+        }
+        .task {
+            await getAllChecklists() { results in
+                checklists = results
+            }
+        }
     }
 }
 
