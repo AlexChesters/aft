@@ -13,22 +13,25 @@ struct ChecklistsList: View {
     @State private var checklists: [Checklist] = []
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                if checklists.count == 0 {
-                    ProgressView()
-                } else {
-                    ForEach(checklists) { checklist in
-                        ChecklistCard(checklist: checklist)
-                            .onTapGesture {
-                                print("tapped: \(checklist.id)")
-                            }
-                        Divider()
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    if checklists.count == 0 {
+                        ProgressView()
+                    } else {
+                        ForEach(checklists) { checklist in
+                            ChecklistCard(checklist: checklist)
+                                .onTapGesture {
+                                    print("tapped: \(checklist.id)")
+                                }
+                            Divider()
+                        }
                     }
                 }
             }
+            .padding()
         }
-        .padding()
+        .navigationViewStyle(StackNavigationViewStyle())
         .task {
             await getAllChecklists() { results in
                 checklists = results
