@@ -24,9 +24,6 @@ struct ChecklistsList: View {
                                 Text("Hello")
                             } label: {
                                 ChecklistCard(checklist: checklist)
-                                    .onTapGesture {
-                                        print("tapped: \(checklist.id)")
-                                    }
                             }
                             .buttonStyle(.plain)
                             Divider()

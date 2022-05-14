@@ -17,8 +17,12 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   // consider tokens due to expire within 1 hour as expired
   expires.setHours(expires.getHours() - 1)
 
-  if (token && (new Date() <= expires)) {
-    authenticated = true
+  if (token) {
+    if (new Date() <= expires) {
+      authenticated = true
+    } else {
+      console.log('expired token')
+    }
   }
 
   // for some reason eslint didn't like the intendation of this function (hence
