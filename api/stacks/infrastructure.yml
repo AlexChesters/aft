@@ -9,6 +9,23 @@ Parameters:
     Type: String
     Default: aft-live
 Resources:
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      MfaConfiguration: "OFF"
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 12
+          RequireLowercase: false
+          RequireNumbers: false
+          RequireSymbols: false
+          RequireUppercase: false
+          TemporaryPasswordValidityDays: 3
+      UsernameAttributes:
+        - email
+      UsernameConfiguration:
+        CaseSensitive: false
+      UserPoolName: aft
   Repository:
     Type: AWS::ECR::Repository
     Properties:
