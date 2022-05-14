@@ -20,6 +20,9 @@ struct ChecklistsList: View {
                 } else {
                     ForEach(checklists) { checklist in
                         ChecklistCard(checklist: checklist)
+                            .onTapGesture {
+                                print("tapped: \(checklist.id)")
+                            }
                         Divider()
                     }
                 }

@@ -30,7 +30,10 @@ struct ChecklistCard_Previews: PreviewProvider {
                     notes: "Made for the Toliss A319 in XP11",
                     sections: [ChecklistSection(
                         title: "Preflight",
-                        entries: ["Flight - Planned", "smartCARS - Started"]
+                        entries: [
+                            "Flight - Planned",
+                            "smartCARS - Started"
+                        ]
                     )]
                 )
             )
