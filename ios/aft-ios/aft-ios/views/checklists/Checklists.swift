@@ -16,7 +16,7 @@ struct Checklists: View {
         ScrollView {
             VStack(alignment: .leading) {
                 if checklists.count == 0 {
-                    ProgressView().padding()
+                    ProgressView()
                 } else {
                     ForEach(checklists) { checklist in
                         Text(checklist.aircraft)
@@ -25,6 +25,7 @@ struct Checklists: View {
                 }
             }
         }
+        .padding()
         .task {
             await getAllChecklists() { results in
                 checklists = results
