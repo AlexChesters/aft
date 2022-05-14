@@ -1,5 +1,5 @@
 //
-//  Checklists.swift
+//  ChecklistsList.swift
 //  aft-ios
 //
 //  Created by Alex Chesters on 13/05/2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Checklists: View {
+struct ChecklistsList: View {
     @EnvironmentObject var user: User
     
     @State private var checklists: [Checklist] = []
@@ -34,8 +34,8 @@ struct Checklists: View {
     }
 }
 
-struct Checklists_Previews: PreviewProvider {
+struct ChecklistsList_Previews: PreviewProvider {
     static var previews: some View {
-        Checklists()
+        ChecklistsList()
     }
 }

@@ -14,7 +14,7 @@ struct MainView: View {
         VStack {
             if user.isAuthenticated {
                 TabView {
-                    Checklists()
+                    ChecklistsList()
                         .tabItem {
                             Label(
                                 "Checklists",
