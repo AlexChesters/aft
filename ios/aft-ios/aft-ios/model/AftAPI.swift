@@ -31,7 +31,7 @@ func getAllChecklists (completionHandler: @escaping (_ result: [Checklist]) -> V
     AF.request(url, interceptor: authenticatedRequestsInterceptor).responseDecodable(of: [ChecklistAPIType].self) { response in
         guard let results = response.value else {
             debugPrint(response)
-            print("[ERROR] no results for home page")
+            print("[ERROR] bad response for all checklists")
             completionHandler([])
             return
         }
