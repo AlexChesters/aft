@@ -26,6 +26,24 @@ Resources:
       UsernameConfiguration:
         CaseSensitive: false
       UserPoolName: aft
+  iOSClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      AccessTokenValidity: 2 # hours
+      AllowedOAuthFlows:
+        - implicit
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthScopes:
+        - email
+      CallbackURLs:
+        - aft://callback
+      ClientName: ios-client
+      DefaultRedirectURI: aft://callback
+      EnableTokenRevocation: true
+      IdTokenValidity: 2 # hours
+      PreventUserExistenceErrors: ENABLED
+      RefreshTokenValidity: 365 # days
+      UserPoolId: !Ref UserPool
   Repository:
     Type: AWS::ECR::Repository
     Properties:
