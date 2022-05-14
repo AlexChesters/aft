@@ -49,6 +49,8 @@ Resources:
       IdTokenValidity: 2 # hours
       PreventUserExistenceErrors: ENABLED
       RefreshTokenValidity: 365 # days
+      SupportedIdentityProviders:
+        - COGNITO
       UserPoolId: !Ref UserPool
   Repository:
     Type: AWS::ECR::Repository
