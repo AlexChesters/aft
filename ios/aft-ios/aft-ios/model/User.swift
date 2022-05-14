@@ -23,7 +23,17 @@ class User: ObservableObject {
         let keychain = KeychainSwift()
         
         if keychain.get("access_token") != nil {
-            self.isAuthenticated = true
+            guard let expiresIn = keychain.get("expires_in") else { return }
+            
+            let formatter = ISO8601DateFormatter()
+            guard var expiryDate = formatter.date(from: expiresIn) else { return }
+            
+            // consider tokens due to expire within 1 hour as expired
+            expiryDate.addTimeInterval(TimeInterval(-3600))
+            
+            if expiryDate > Date() {
+                self.isAuthenticated = true
+            }
         }
     }
     
