@@ -49,10 +49,14 @@ class User: ObservableObject {
                 return
             }
             
+            var date = Date()
+            date.addTimeInterval(TimeInterval(response.expires_in))
+            let formatter = ISO8601DateFormatter()
+            
             let keychain = KeychainSwift()
             keychain.set(response.access_token, forKey: "access_token")
             keychain.set(response.id_token, forKey: "id_token")
-            keychain.set("\(response.expires_in)", forKey: "expires_in")
+            keychain.set(formatter.string(from: date), forKey: "expires_in")
             
             self.isAuthenticated = true
         }
