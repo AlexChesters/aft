@@ -9,7 +9,6 @@ import Foundation
 import Alamofire
 import KeychainSwift
 
-// MARK: public classes
 class Checklist: Identifiable {
     let id: String
     let aircraft: String
