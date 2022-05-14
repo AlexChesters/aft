@@ -19,6 +19,7 @@
 		ACEE29A3282FF42D00D0DCD1 /* AftAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE29A2282FF42D00D0DCD1 /* AftAPI.swift */; };
 		ACEE29A6282FF4B800D0DCD1 /* Interceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE29A5282FF4B800D0DCD1 /* Interceptors.swift */; };
 		ACEE29A92830016E00D0DCD1 /* AuthUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE29A82830016E00D0DCD1 /* AuthUtils.swift */; };
+		ACEE29AC2830070D00D0DCD1 /* ChecklistCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE29AB2830070D00D0DCD1 /* ChecklistCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		ACEE29A2282FF42D00D0DCD1 /* AftAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AftAPI.swift; sourceTree = "<group>"; };
 		ACEE29A5282FF4B800D0DCD1 /* Interceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptors.swift; sourceTree = "<group>"; };
 		ACEE29A82830016E00D0DCD1 /* AuthUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUtils.swift; sourceTree = "<group>"; };
+		ACEE29AB2830070D00D0DCD1 /* ChecklistCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistCard.swift; sourceTree = "<group>"; };
 		B03594C1AF1FBA7949EDC37B /* Pods-aft-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aft-ios.release.xcconfig"; path = "Target Support Files/Pods-aft-ios/Pods-aft-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,6 +160,7 @@
 		ACEE29AA2830040000D0DCD1 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				ACEE29AB2830070D00D0DCD1 /* ChecklistCard.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACEE29AC2830070D00D0DCD1 /* ChecklistCard.swift in Sources */,
 				ACEE299C282ECDE700D0DCD1 /* Auth.swift in Sources */,
 				ACEE298A282ECCA800D0DCD1 /* MainView.swift in Sources */,
 				ACEE29A0282F0BC000D0DCD1 /* AccountManagement.swift in Sources */,

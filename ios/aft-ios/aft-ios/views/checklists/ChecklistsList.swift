@@ -19,7 +19,7 @@ struct ChecklistsList: View {
                     ProgressView()
                 } else {
                     ForEach(checklists) { checklist in
-                        Text(checklist.aircraft)
+                        ChecklistCard(checklist: checklist)
                         Divider()
                     }
                 }

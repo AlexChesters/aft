@@ -12,16 +12,19 @@ import KeychainSwift
 class Checklist: Identifiable {
     let id: String
     let aircraft: String
+    let notes: String
 
     init (data: ChecklistAPIType) {
         self.id = data.identifier
         self.aircraft = data.aircraft
+        self.notes = data.notes
     }
 }
 
 struct ChecklistAPIType: Decodable {
     let identifier: String
     let aircraft: String
+    let notes: String
 }
 
 func getAllChecklists (completionHandler: @escaping (_ result: [Checklist]) -> Void) async {
