@@ -52,6 +52,27 @@ Resources:
       SupportedIdentityProviders:
         - COGNITO
       UserPoolId: !Ref UserPool
+  WebClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      AccessTokenValidity: 2 # hours
+      AllowedOAuthFlows:
+        - implicit
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthScopes:
+        - openid
+        - email
+      CallbackURLs:
+        - http://localhost:8081/auth/callback
+      ClientName: web-client
+      DefaultRedirectURI: http://localhost:8081/auth/callback
+      EnableTokenRevocation: true
+      IdTokenValidity: 2 # hours
+      PreventUserExistenceErrors: ENABLED
+      RefreshTokenValidity: 365 # days
+      SupportedIdentityProviders:
+        - COGNITO
+      UserPoolId: !Ref UserPool
   Repository:
     Type: AWS::ECR::Repository
     Properties:
