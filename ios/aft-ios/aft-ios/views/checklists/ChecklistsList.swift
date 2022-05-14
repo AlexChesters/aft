@@ -20,10 +20,15 @@ struct ChecklistsList: View {
                         ProgressView()
                     } else {
                         ForEach(checklists) { checklist in
-                            ChecklistCard(checklist: checklist)
-                                .onTapGesture {
-                                    print("tapped: \(checklist.id)")
-                                }
+                            NavigationLink {
+                                Text("Hello")
+                            } label: {
+                                ChecklistCard(checklist: checklist)
+                                    .onTapGesture {
+                                        print("tapped: \(checklist.id)")
+                                    }
+                            }
+                            .buttonStyle(.plain)
                             Divider()
                         }
                     }
