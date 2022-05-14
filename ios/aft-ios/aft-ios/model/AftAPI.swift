@@ -35,7 +35,9 @@ func getAllChecklists (completionHandler: @escaping (_ result: [Checklist]) -> V
             return
         }
         
-        let checklists = results.map { return Checklist(data: $0) }
+        let checklists = results
+            .map { return Checklist(data: $0) }
+            .sorted(by: { $0.aircraft < $1.aircraft })
         completionHandler(checklists)
     }
 }
