@@ -26,6 +26,11 @@ Resources:
       UsernameConfiguration:
         CaseSensitive: false
       UserPoolName: aft
+  UserPoolDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: aft
+      UserPoolId: !Ref UserPool
   iOSClient:
     Type: AWS::Cognito::UserPoolClient
     Properties:
