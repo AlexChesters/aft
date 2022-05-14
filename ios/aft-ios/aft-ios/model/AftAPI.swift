@@ -13,11 +13,13 @@ class Checklist: Identifiable {
     let id: String
     let aircraft: String
     let notes: String
+    let sections: [ChecklistSection]
 
     init (data: ChecklistAPIType) {
         self.id = data.identifier
         self.aircraft = data.aircraft
         self.notes = data.notes
+        self.sections = data.sections
     }
 }
 
@@ -25,6 +27,12 @@ struct ChecklistAPIType: Decodable {
     let identifier: String
     let aircraft: String
     let notes: String
+    let sections: [ChecklistSection]
+}
+
+struct ChecklistSection: Decodable {
+    let title: String
+    let entries: [String]
 }
 
 func getAllChecklists (completionHandler: @escaping (_ result: [Checklist]) -> Void) async {
