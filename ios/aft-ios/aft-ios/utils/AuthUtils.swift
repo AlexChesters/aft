@@ -28,4 +28,15 @@ class AuthUtils {
         
         return false
     }
+    
+    public func getAccessToken () -> String? {
+        if !self.isAccessTokenValid() { return nil }
+        
+        let keychain = KeychainSwift()
+        guard let accessToken = keychain.get("access_token") else {
+            return nil
+        }
+        
+        return accessToken
+    }
 }
