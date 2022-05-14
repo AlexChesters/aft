@@ -19,21 +19,7 @@ class User: ObservableObject {
     @Published var isAuthenticated = false
     
     init () {
-        let keychain = KeychainSwift()
-        
-        if keychain.get("access_token") != nil {
-            guard let expiresIn = keychain.get("expires_in") else { return }
-            
-            let formatter = ISO8601DateFormatter()
-            guard var expiryDate = formatter.date(from: expiresIn) else { return }
-            
-            // consider tokens due to expire within 1 hour as expired
-            expiryDate.addTimeInterval(TimeInterval(-3600))
-            
-            if expiryDate > Date() {
-                self.isAuthenticated = true
-            }
-        }
+        self.isAuthenticated = AuthUtils().isAccessTokenValid()
     }
     
     public func signIn(email: String, password: String) {

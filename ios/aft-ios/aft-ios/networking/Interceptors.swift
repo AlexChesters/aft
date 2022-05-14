@@ -9,6 +9,10 @@ import Foundation
 import Alamofire
 import KeychainSwift
 
+enum BadAuth: Error {
+    case noAccessToken
+}
+
 private class AccessTokenInterceptor: RequestInterceptor {
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         var urlRequest = urlRequest
@@ -16,9 +20,10 @@ private class AccessTokenInterceptor: RequestInterceptor {
         
         if let accessToken = keychain.get("access_token") {
             urlRequest.headers.add(.authorization(accessToken))
+            completion(.success(urlRequest))
+        } else {
+            completion(.failure(BadAuth.noAccessToken))
         }
-        
-        completion(.success(urlRequest))
     }
 }
 
