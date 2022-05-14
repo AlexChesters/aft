@@ -75,5 +75,7 @@ class User: ObservableObject {
         let keychain = KeychainSwift()
         
         keychain.clear()
+        
+        self.isAuthenticated = false
     }
 }
