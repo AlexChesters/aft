@@ -39,6 +39,7 @@ Resources:
         - implicit
       AllowedOAuthFlowsUserPoolClient: true
       AllowedOAuthScopes:
+        - openid
         - email
       CallbackURLs:
         - aft://callback
