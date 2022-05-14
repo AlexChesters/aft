@@ -14,9 +14,6 @@ struct aft_iosApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-                .onOpenURL { url in
-                    self.user.handleAuthCallback(url: url)
-                }
                 .environmentObject(user)
         }
     }

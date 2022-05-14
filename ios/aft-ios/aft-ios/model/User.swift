@@ -63,19 +63,4 @@ class User: ObservableObject {
         
         keychain.clear()
     }
-    
-    public func handleAuthCallback (url: URL) {
-        var urlToParse = URLComponents(string: url.absoluteString)
-        urlToParse?.query = nil
-        if urlToParse?.string?.starts(with: "aft://callback") == false {
-            print("[ERROR] url was not expected callback")
-            return
-        }
-        
-        let components = URLComponents(string: url.absoluteString)
-        
-        components?.queryItems?.forEach { item in
-            print("name: \(item.name), value: \(item.value!)")
-        }
-    }
 }
