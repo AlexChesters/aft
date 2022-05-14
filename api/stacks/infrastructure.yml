@@ -36,7 +36,7 @@ Resources:
     Properties:
       AccessTokenValidity: 2 # hours
       AllowedOAuthFlows:
-        - implicit
+        - code
       AllowedOAuthFlowsUserPoolClient: true
       AllowedOAuthScopes:
         - openid
@@ -57,7 +57,7 @@ Resources:
     Properties:
       AccessTokenValidity: 2 # hours
       AllowedOAuthFlows:
-        - implicit
+        - code
       AllowedOAuthFlowsUserPoolClient: true
       AllowedOAuthScopes:
         - openid
