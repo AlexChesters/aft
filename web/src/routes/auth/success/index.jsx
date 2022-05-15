@@ -15,6 +15,9 @@ const AuthSuccess = () => {
   auth.set('accessToken', accessToken)
   auth.set('refreshToken', refreshToken)
   auth.set('expiresIn', date.toISOString())
+
+  window.location = '/'
+  return null
 }
 
 export default AuthSuccess

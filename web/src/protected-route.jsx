@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import PageSkeleton from './components/page-skeleton'
-import SignIn from './routes/auth/sign-in'
+import Challenge from './routes/auth/challenge'
 import persistentStorage from './utils/persistent-storage'
 
 const auth = persistentStorage.auth
@@ -37,7 +37,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
     ) // eslint-disable-line indent
     : (
       <PageSkeleton>
-        <SignIn returnToPath={window.location.pathname} />
+        <Challenge />
       </PageSkeleton>
     ) // eslint-disable-line indent
 }
