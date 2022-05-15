@@ -27,6 +27,9 @@ module.exports = {
       ? 'eurAmb5r1Hss224GxbvMfIGM2NvHcHCQ'
       : 'A0z50h51rjmaKX0Lecz6VC0XPWlOwe0k'
   },
+  cognito: {
+    domain: 'https://aft.auth.eu-west-1.amazoncognito.com'
+  },
   callbackURL: callbackURL,
   environment: isDevelopmentEnvironment ? 'DEV' : 'PROD',
   port: isDevelopmentEnvironment ? 8080 : 80

@@ -42,9 +42,10 @@ Resources:
         - openid
         - email
       CallbackURLs:
-        - aft://callback
+        - http://localhost:8080/auth/callback/ios
+        - https://edge.alexchesters.com/aft/auth/callback/ios
       ClientName: ios-client
-      DefaultRedirectURI: aft://callback
+      DefaultRedirectURI: https://edge.alexchesters.com/aft/auth/callback/ios
       EnableTokenRevocation: true
       IdTokenValidity: 2 # hours
       PreventUserExistenceErrors: ENABLED
@@ -63,10 +64,10 @@ Resources:
         - openid
         - email
       CallbackURLs:
-        - http://localhost:8080/auth/callback
-        - https://edge.alexchesters.com/aft/auth/callback
+        - http://localhost:8080/auth/callback/web
+        - https://edge.alexchesters.com/aft/auth/callback/web
       ClientName: web-client
-      DefaultRedirectURI: https://edge.alexchesters.com/aft/auth/callback
+      DefaultRedirectURI: https://edge.alexchesters.com/aft/auth/callback/web
       EnableTokenRevocation: true
       IdTokenValidity: 2 # hours
       PreventUserExistenceErrors: ENABLED
