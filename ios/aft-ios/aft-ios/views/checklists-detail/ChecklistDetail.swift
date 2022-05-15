@@ -14,25 +14,27 @@ struct ChecklistDetail: View {
         ScrollView {
             VStack(alignment: .leading) {
                 Text(checklist.aircraft)
-                    .font(.system(size: 30))
+                    .font(.system(size: 40))
                 Text(checklist.notes)
-                    .font(.system(size: 18))
+                    .font(.system(size: 24))
                     .italic()
                 
+                Divider().frame(height: 2).background(Color.green)
                 Spacer()
                 
                 ForEach(checklist.sections) { section in
                     Text(section.title)
-                        .font(.system(size: 22))
+                        .font(.system(size: 32))
                         .underline()
+                        .padding(.bottom)
                     Spacer()
                     
                     ForEach(section.entries, id: \.self) { entry in
-                        Text(entry)
-                            .font(.system(size: 16))
+                        ChecklistEntry(entry: entry)
+                        Divider()
                     }
                     
-                    Divider()
+                    Divider().frame(height: 3).background(Color.green)
                 }
             }
             .frame(

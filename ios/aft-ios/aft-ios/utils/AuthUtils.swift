@@ -49,8 +49,8 @@ class AuthUtils {
             let formatter = ISO8601DateFormatter()
             guard var expiryDate = formatter.date(from: expiresIn) else { return false }
             
-            // consider tokens due to expire within 1 hour as expired
-            expiryDate.addTimeInterval(TimeInterval(-3600))
+            // consider tokens due to expire within 5 minutes as expired
+            expiryDate.addTimeInterval(TimeInterval(-300))
             
             if expiryDate > Date() {
                 return true
