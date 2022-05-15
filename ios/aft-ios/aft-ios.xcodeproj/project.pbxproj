@@ -97,7 +97,6 @@
 				ACEE299D282ECE1600D0DCD1 /* Info.plist */,
 				ACEE29A72830016300D0DCD1 /* utils */,
 				ACEE29A4282FF4AD00D0DCD1 /* networking */,
-				ACEE2996282ECCF400D0DCD1 /* model */,
 				ACEE2995282ECCCC00D0DCD1 /* views */,
 				ACEE2987282ECCA800D0DCD1 /* aft_iosApp.swift */,
 				ACEE2989282ECCA800D0DCD1 /* MainView.swift */,
@@ -126,14 +125,6 @@
 			path = views;
 			sourceTree = "<group>";
 		};
-		ACEE2996282ECCF400D0DCD1 /* model */ = {
-			isa = PBXGroup;
-			children = (
-				ACEE29A2282FF42D00D0DCD1 /* AftAPI.swift */,
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
 		ACEE29A1282FF1E900D0DCD1 /* checklists-list */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +137,8 @@
 		ACEE29A4282FF4AD00D0DCD1 /* networking */ = {
 			isa = PBXGroup;
 			children = (
-				ACEE29A5282FF4B800D0DCD1 /* Interceptors.swift */,
+				ACEE29B3283189F400D0DCD1 /* utils */,
+				ACEE29A2282FF42D00D0DCD1 /* AftAPI.swift */,
 			);
 			path = networking;
 			sourceTree = "<group>";
@@ -182,6 +174,14 @@
 				ACEE29B128317E5800D0DCD1 /* ChecklistEntry.swift */,
 			);
 			path = components;
+			sourceTree = "<group>";
+		};
+		ACEE29B3283189F400D0DCD1 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				ACEE29A5282FF4B800D0DCD1 /* Interceptors.swift */,
+			);
+			path = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
