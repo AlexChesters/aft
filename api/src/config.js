@@ -31,7 +31,7 @@ module.exports = {
     ios: {
       clientId: isDevelopmentEnvironment
         ? '1gmnp8tt6jtg9s3k8plopfnkt5'
-        : '2bkinc2fc0amh3qkvqgvlh0epd',
+        : '7i2fmh23s0j3u5nrb29v1qp9qd',
       redirectUri: isDevelopmentEnvironment
         ? 'http://localhost:8080/auth/callback/ios'
         : 'https://edge.alexchesters.com/aft/auth/callback/ios',
@@ -40,7 +40,7 @@ module.exports = {
     web: {
       clientId: isDevelopmentEnvironment
         ? '6l4rtjsnsuf5sg1ejth9r8lsh3'
-        : '4h37tr4pcqmmk891lbqg2p7de2',
+        : '587nslla7ek69ap9qk6allch38',
       redirectUri: isDevelopmentEnvironment
         ? 'http://localhost:8080/auth/callback/web'
         : 'https://edge.alexchesters.com/aft/auth/callback/ios',
