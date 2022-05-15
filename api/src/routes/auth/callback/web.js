@@ -38,7 +38,6 @@ module.exports = async (req, res, next) => {
 
   try {
     const tokens = await tokenResponse.json()
-    console.log('tokens', tokens)
     const destinationUri = new URL(config.cognito.web.destinationUri)
 
     destinationUri.searchParams.append('access_token', tokens.access_token)
