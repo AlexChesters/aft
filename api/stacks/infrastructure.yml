@@ -29,7 +29,7 @@ Resources:
   TestUserPoolDomain:
     Type: AWS::Cognito::UserPoolDomain
     Properties:
-      Domain: dev.aft
+      Domain: dev-aft
       UserPoolId: !Ref TestUserPool
   TestiOSClient:
     Type: AWS::Cognito::UserPoolClient
