@@ -20,8 +20,8 @@ const ensureTokenFreshness = async () => {
   // throw error?
   if (!expires || !refreshToken) return
 
-  // consider tokens due to expire within 30 minutes as expired
-  expires.setMinutes(-30)
+  // consider tokens due to expire within 5 minutes as expired
+  expires.setMinutes(-5)
 
   if (new Date() > expires) {
     const res = await post('/auth/refresh/web', {
