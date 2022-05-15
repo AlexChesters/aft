@@ -1,6 +1,6 @@
 const auth0 = require('auth0')
 
-const config = require('../config')
+const config = require('../../config')
 
 module.exports = async (req, res, next) => {
   try {
@@ -11,15 +11,14 @@ module.exports = async (req, res, next) => {
     })
 
     const data = {
-      client_id: config.auth0.clientId,
-      username: req.body.username,
+      email: req.body.username,
       password: req.body.password,
-      realm: 'Username-Password-Authentication'
+      connection: 'Username-Password-Authentication'
     }
 
-    const response = await authenticationClient.oauth.passwordGrant(data)
+    await authenticationClient.database.signUp(data)
 
-    res.json(response)
+    res.sendStatus(201)
   } catch (ex) {
     res.sendStatus(400)
   }

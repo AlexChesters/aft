@@ -2,8 +2,8 @@ const express = require('express')
 
 const routes = {
   status: require('./routes/status'),
-  signIn: require('./routes/sign-in'),
-  register: require('./routes/register')
+  signIn: require('./routes/auth/sign-in'),
+  register: require('./routes/auth/register')
 }
 
 const routers = {
