@@ -17,6 +17,7 @@ struct ChecklistEntry: View {
         HStack {
             Text(entry)
                 .strikethrough(completed)
+                .opacity(completed ? 0.2 : 1.0)
                 .font(.system(size: 26))
                 .onTapGesture {
                     completed.toggle()
