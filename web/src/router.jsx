@@ -7,6 +7,7 @@ import PageSkeleton from './components/page-skeleton'
 import ProtectedRoute from './protected-route'
 import SignIn from './routes/auth/sign-in'
 import SignOut from './routes/auth/sign-out'
+import AuthSuccess from './routes/auth/success'
 import Home from './routes/home'
 import Help from './routes/help'
 
@@ -25,6 +26,7 @@ export default function router () {
             </PageSkeleton>
           )
         }} />
+        <Route exact path='/auth/success' component={AuthSuccess} />
         <ProtectedRoute exact path='/' component={Home} />
         <ProtectedRoute exact path='/help' component={Help} />
         <ProtectedRoute exact path='/sign-out' component={SignOut} />
