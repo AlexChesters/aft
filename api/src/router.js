@@ -46,8 +46,8 @@ module.exports = () => {
   )
 
   // authentication routes
-  router.post('/sign-in', middleware.cacheControl.noStore, routes.signIn)
-  router.post('/register', middleware.cacheControl.noStore, routes.register)
+  router.post('/auth/sign-in', middleware.cacheControl.noStore, routes.signIn)
+  router.post('/auth/register', middleware.cacheControl.noStore, routes.register)
 
   // debugging routes
   router.post('/debug', middleware.cacheControl.noStore, middleware.ensureAuthenticated, (req, res) => res.sendStatus(200))

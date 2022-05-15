@@ -63,9 +63,10 @@ Resources:
         - openid
         - email
       CallbackURLs:
-        - http://localhost:8081/auth/callback
+        - http://localhost:8080/auth/callback
+        - https://edge.alexchesters.com/aft/auth/callback
       ClientName: web-client
-      DefaultRedirectURI: http://localhost:8081/auth/callback
+      DefaultRedirectURI: https://edge.alexchesters.com/aft/auth/callback
       EnableTokenRevocation: true
       IdTokenValidity: 2 # hours
       PreventUserExistenceErrors: ENABLED

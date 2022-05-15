@@ -48,7 +48,7 @@ describe('api client', () => {
       it('makes the appropriate request', async () => {
         nock('https://edge.alexchesters.com')
           .post(
-            '/aft/sign-in',
+            '/aft/auth/sign-in',
             {
               username: 'billy@bob.com',
               password: 'hunter2'
@@ -67,7 +67,7 @@ describe('api client', () => {
       it('makes the appropriate request', async () => {
         nock('https://edge.alexchesters.com')
           .post(
-            '/aft/register',
+            '/aft/auth/register',
             {
               username: 'billy@bob.com',
               password: 'hunter2'
