@@ -16,7 +16,7 @@ const AuthSuccess = () => {
   auth.set('refreshToken', refreshToken)
   auth.set('expiresIn', date.toISOString())
 
-  window.location = '/'
+  window.location = '/aft/'
   return null
 }
 
