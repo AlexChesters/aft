@@ -23,6 +23,8 @@ Resources:
           TemporaryPasswordValidityDays: 3
       UsernameAttributes:
         - email
+      AutoVerifiedAttributes:
+        - email
       UsernameConfiguration:
         CaseSensitive: false
       UserPoolName: aft-test
@@ -88,6 +90,8 @@ Resources:
           RequireUppercase: false
           TemporaryPasswordValidityDays: 3
       UsernameAttributes:
+        - email
+      AutoVerifiedAttributes:
         - email
       UsernameConfiguration:
         CaseSensitive: false
