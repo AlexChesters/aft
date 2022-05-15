@@ -10,8 +10,6 @@ import SwiftUI
 struct ChecklistDetail: View {
     let checklist: AFTDataTypes.Checklist
     
-    @State private var completedEntries: [String] = []
-    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -34,24 +32,7 @@ struct ChecklistDetail: View {
                     ForEach(section.entries, id: \.self) { entry in
                         ChecklistEntry(
                             identifier: checklist.identifier,
-                            entry: entry,
-                            completed: completedEntries.contains(entry),
-                            onTapped: {
-                                let defaults = UserDefaults.standard
-                                
-                                var persistentState = defaults.object(forKey: "\(checklist.identifier)-completed-state") as? [String] ?? []
-                                
-                                if persistentState.contains(entry) {
-                                    persistentState.removeAll(where: { $0 == entry })
-                                } else {
-                                    persistentState.append(entry)
-                                }
-                                
-                                DispatchQueue.main.async {
-                                    defaults.setValue(persistentState, forKey: "\(checklist.identifier)-completed-state")
-                                    completedEntries = persistentState
-                                }
-                            }
+                            entry: entry
                         )
                         Divider()
                     }
@@ -68,11 +49,6 @@ struct ChecklistDetail: View {
             )
         }
         .padding()
-        .onAppear {
-            let defaults = UserDefaults.standard
-            
-            completedEntries = defaults.object(forKey: "\(checklist.identifier)-completed-state") as? [String] ?? []
-        }
     }
 }
 
