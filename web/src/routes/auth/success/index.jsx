@@ -10,7 +10,7 @@ const AuthSuccess = () => {
   const expiresIn = url.searchParams.get('expires_in')
 
   const date = new Date()
-  date.setSeconds(date.getSeconds() + expiresIn)
+  date.setSeconds(date.getSeconds() + Number.parseInt(expiresIn))
 
   auth.set('accessToken', accessToken)
   auth.set('refreshToken', refreshToken)
