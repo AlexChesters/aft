@@ -29,7 +29,7 @@ module.exports = {
         : '587nslla7ek69ap9qk6allch38',
       redirectUri: isDevelopmentEnvironment
         ? 'http://localhost:8080/auth/callback/web'
-        : 'https://edge.alexchesters.com/aft/auth/callback/ios',
+        : 'https://edge.alexchesters.com/aft/auth/callback/web',
       destinationUri: isDevelopmentEnvironment
         ? 'http://localhost:8081/auth/success'
         : 'https://projects.alexchesters.com/aft/auth/success'
