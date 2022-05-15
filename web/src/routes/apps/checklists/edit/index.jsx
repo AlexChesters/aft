@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import LoadingSpinner from '../../../../components/loading-spinner'
+import ErrorDialog from '../../../../components/error-dialog'
 import Form from '../components/checklist-form'
 
 import './index.scss'
@@ -9,34 +10,31 @@ import './index.scss'
 import apiClient from '../../../../networking/api-client'
 
 const Edit = () => {
-  const [authenticated, setAuthenticated] = useState(true)
+  const [errored, setErrored] = useState(false)
   const [loading, setLoading] = useState(true)
   const [checklist, setChecklist] = useState({})
 
   const { identifier } = useParams()
 
   async function fetchData () {
-    const { status, data } = await apiClient.checklists.fetchOne(identifier)
+    const { error, data } = await apiClient.checklists.fetchOne(identifier)
 
-    if (status === 401) {
-      setAuthenticated(false)
-      return
-    }
-
-    setChecklist(data)
     setLoading(false)
+    error
+      ? setErrored(true)
+      : setChecklist(data)
   }
 
   useEffect(() => {
     fetchData()
   }, [])
 
-  if (!authenticated) {
-    return <Redirect to={{ pathname: '/auth/challenge', state: { returnToPath: window.location.pathname } }} />
-  }
-
   if (loading) {
     return <LoadingSpinner />
+  }
+
+  if (errored) {
+    return <ErrorDialog />
   }
 
   return (

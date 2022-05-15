@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faCopy } from '@fortawesome/free-solid-svg-icons'
@@ -12,19 +12,13 @@ import apiClient from '../../../../networking/api-client'
 import './index.scss'
 
 const Home = () => {
-  const [authenticated, setAuthenticated] = useState(true)
   const [errored, setErrored] = useState(false)
   const [loading, setLoading] = useState(true)
   const [checklists, setChecklists] = useState([])
   const history = useHistory()
 
   async function fetchData () {
-    const { status, data, error } = await apiClient.checklists.fetchAll()
-
-    if (status === 401) {
-      setAuthenticated(false)
-      return
-    }
+    const { data, error } = await apiClient.checklists.fetchAll()
 
     error
       ? setErrored(true)
@@ -52,10 +46,6 @@ const Home = () => {
       await apiClient.checklists.delete(identifier)
       fetchData()
     }
-  }
-
-  if (!authenticated) {
-    return <Redirect to={{ pathname: '/auth/challenge', state: { returnToPath: window.location.pathname } }} />
   }
 
   if (loading) {

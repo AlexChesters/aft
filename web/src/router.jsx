@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import './styles/index.scss'
 
-import PageSkeleton from './components/page-skeleton'
 import ProtectedRoute from './protected-route'
 import AuthSuccess from './routes/auth/success'
 import Home from './routes/home'
@@ -17,13 +16,6 @@ export default function router () {
   return (
     <Router basename={'/aft'}>
       <Switch>
-        <Route exact path='/auth/challenge' render={(props) => {
-          return (
-            <PageSkeleton>
-              <h1>Challenge</h1>
-            </PageSkeleton>
-          )
-        }} />
         <Route exact path='/auth/success' component={AuthSuccess} />
         <ProtectedRoute exact path='/' component={Home} />
         <ProtectedRoute exact path='/help' component={Help} />

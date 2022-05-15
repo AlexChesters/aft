@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Redirect } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import './index.scss'
 
@@ -10,7 +10,6 @@ import ChecklistViewer from '../../../../components/checklist-viewer'
 import apiClient from '../../../../networking/api-client'
 
 const Viewer = () => {
-  const [authenticated, setAuthenticated] = useState(true)
   const [errored, setErrored] = useState(false)
   const [loading, setLoading] = useState(true)
   const [checklist, setChecklist] = useState({})
@@ -18,12 +17,7 @@ const Viewer = () => {
   const { identifier } = useParams()
 
   async function fetchData () {
-    const { status, data, error } = await apiClient.checklists.fetchOne(identifier)
-
-    if (status === 401) {
-      setAuthenticated(false)
-      return
-    }
+    const { data, error } = await apiClient.checklists.fetchOne(identifier)
 
     setLoading(false)
 
@@ -39,10 +33,6 @@ const Viewer = () => {
   useEffect(() => {
     fetchData()
   }, [])
-
-  if (!authenticated) {
-    return <Redirect to={{ pathname: '/auth/challenge', state: { returnToPath: window.location.pathname } }} />
-  }
 
   if (loading) {
     return <LoadingSpinner />
