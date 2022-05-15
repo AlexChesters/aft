@@ -2,8 +2,14 @@ const express = require('express')
 
 const routes = {
   status: require('./routes/status'),
-  webCallback: require('./routes/auth/callback/web'),
-  iosCallback: require('./routes/auth/callback/ios')
+  callback: {
+    web: require('./routes/auth/callback/web'),
+    ios: require('./routes/auth/callback/ios')
+  },
+  refresh: {
+    web: require('./routes/auth/refresh/web'),
+    ios: require('./routes/auth/refresh/ios')
+  }
 }
 
 const routers = {
@@ -46,8 +52,10 @@ module.exports = () => {
   )
 
   // authentication routes
-  router.get('/auth/callback/web', middleware.cacheControl.noStore, routes.webCallback)
-  router.get('/auth/callback/ios', middleware.cacheControl.noStore, routes.iosCallback)
+  router.get('/auth/callback/web', middleware.cacheControl.noStore, routes.callback.web)
+  router.get('/auth/refresh/web', middleware.cacheControl.noStore, routes.refresh.web)
+  router.get('/auth/callback/ios', middleware.cacheControl.noStore, routes.callback.ios)
+  router.get('/auth/refresh/ios', middleware.cacheControl.noStore, routes.refresh.ios)
 
   // debugging routes
   router.get('/debug', middleware.cacheControl.noStore, middleware.ensureAuthenticated, (req, res) => res.sendStatus(200))
