@@ -32,7 +32,7 @@ const Edit = () => {
   }, [])
 
   if (!authenticated) {
-    return <Redirect to={{ pathname: '/auth/sign-in', state: { returnToPath: window.location.pathname } }} />
+    return <Redirect to={{ pathname: '/auth/challenge', state: { returnToPath: window.location.pathname } }} />
   }
 
   if (loading) {

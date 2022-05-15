@@ -53,9 +53,9 @@ module.exports = () => {
 
   // authentication routes
   router.get('/auth/callback/web', middleware.cacheControl.noStore, routes.callback.web)
-  router.get('/auth/refresh/web', middleware.cacheControl.noStore, routes.refresh.web)
+  router.post('/auth/refresh/web', middleware.cacheControl.noStore, routes.refresh.web)
   router.get('/auth/callback/ios', middleware.cacheControl.noStore, routes.callback.ios)
-  router.get('/auth/refresh/ios', middleware.cacheControl.noStore, routes.refresh.ios)
+  router.post('/auth/refresh/ios', middleware.cacheControl.noStore, routes.refresh.ios)
 
   // debugging routes
   router.get('/debug', middleware.cacheControl.noStore, middleware.ensureAuthenticated, (req, res) => res.sendStatus(200))
