@@ -12,9 +12,10 @@ struct ChecklistCard: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(checklist.aircraft).font(.headline)
+            Text(checklist.aircraft)
+                .font(.system(size: 26))
             Text(checklist.notes)
-                .font(.footnote)
+                .font(.system(size: 22))
                 .italic()
         }
     }
