@@ -24,7 +24,7 @@ const ensureTokenFreshness = async () => {
   expires.setMinutes(-5)
 
   if (new Date() > expires) {
-    const res = await post('/auth/refresh/web', {
+    const res = await fetch(`${baseURL}/auth/refresh/web`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -32,9 +32,11 @@ const ensureTokenFreshness = async () => {
       body: JSON.stringify({ refreshToken })
     })
 
-    authStorage.set('accessToken', res.data.accessToken)
+    const data = await res.json()
+
+    authStorage.set('accessToken', data.accessToken)
     const date = new Date()
-    date.setSeconds(date.getSeconds() + Number.parseInt(res.data.expiresIn))
+    date.setSeconds(date.getSeconds() + Number.parseInt(data.expiresIn))
     authStorage.set('expiresIn', date.toISOString())
   }
 }
