@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import KeychainSwift
 
-struct DataTypes {
+struct AFTDataTypes {
     struct Checklist: Decodable, Identifiable {
         let identifier: String
         let aircraft: String
@@ -27,18 +27,20 @@ struct DataTypes {
     }
 }
 
-func getAllChecklists (completionHandler: @escaping (_ result: [DataTypes.Checklist]) -> Void) async {
-    let url = "https://edge.alexchesters.com/aft/checklists/list"
-    
-    AF.request(url, interceptor: authenticatedRequestsInterceptor).responseDecodable(of: [DataTypes.Checklist].self) { response in
-        guard let results = response.value else {
-            debugPrint(response)
-            print("[ERROR] bad response for all checklists")
-            completionHandler([])
-            return
-        }
+func getAllChecklists (completionHandler: @escaping (_ result: [AFTDataTypes.Checklist]) -> Void) async {
+    await AuthUtils().refreshAccessTokenIfNeeded {
+        let url = "https://edge.alexchesters.com/aft/checklists/list"
         
-        let checklists = results.sorted(by: { $0.aircraft < $1.aircraft })
-        completionHandler(checklists)
+        AF.request(url, interceptor: authenticatedRequestsInterceptor).responseDecodable(of: [AFTDataTypes.Checklist].self) { response in
+            guard let results = response.value else {
+                debugPrint(response)
+                print("[ERROR] bad response for all checklists")
+                completionHandler([])
+                return
+            }
+            
+            let checklists = results.sorted(by: { $0.aircraft < $1.aircraft })
+            completionHandler(checklists)
+        }
     }
 }

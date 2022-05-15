@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChecklistsList: View {    
-    @State private var checklists: [DataTypes.Checklist] = []
+    @State private var checklists: [AFTDataTypes.Checklist] = []
     
     var body: some View {
         NavigationView {

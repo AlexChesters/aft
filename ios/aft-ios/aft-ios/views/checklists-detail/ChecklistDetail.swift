@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChecklistDetail: View {
-    let checklist: DataTypes.Checklist
+    let checklist: AFTDataTypes.Checklist
     
     var body: some View {
         ScrollView {
@@ -30,7 +30,10 @@ struct ChecklistDetail: View {
                     Spacer()
                     
                     ForEach(section.entries, id: \.self) { entry in
-                        ChecklistEntry(entry: entry)
+                        ChecklistEntry(
+                            identifier: checklist.identifier,
+                            entry: entry
+                        )
                         Divider()
                     }
                     
@@ -51,19 +54,19 @@ struct ChecklistDetail: View {
 
 struct ChecklistDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ChecklistDetail(checklist: DataTypes.Checklist(
+        ChecklistDetail(checklist: AFTDataTypes.Checklist(
             identifier: "abcd-1234",
             aircraft: "Airbus A319",
             notes: "Made for the Toliss A319 in XP11",
             sections: [
-                DataTypes.ChecklistSection(
+                AFTDataTypes.ChecklistSection(
                     title: "Preflight",
                     entries: [
                         "Flight - Planned",
                         "smartCARS - Started"
                     ]
                 ),
-                DataTypes.ChecklistSection(
+                AFTDataTypes.ChecklistSection(
                     title: "Cockpit preparation",
                     entries: [
                         "Battery 1 + 2 - ON"

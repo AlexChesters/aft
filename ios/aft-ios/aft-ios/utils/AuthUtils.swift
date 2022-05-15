@@ -7,6 +7,21 @@
 
 import Foundation
 import KeychainSwift
+import Alamofire
+
+private struct AuthDataTypes {
+    struct RefreshTokenResponse: Decodable {
+        let accessToken: String
+        let expiresIn: Int
+    }
+}
+
+private enum AccessTokenState {
+    case notFound
+    case expired
+    case unknown
+    case valid
+}
 
 class AuthUtils {
     public func handleAuthCallback (url: URL) {
@@ -40,33 +55,80 @@ class AuthUtils {
         }
     }
     
-    public func isAccessTokenValid() -> Bool {
+    private func refreshToken(completionHandler: @escaping () -> Void) async {
+        let keychain = KeychainSwift()
+        
+        guard let refreshToken = keychain.get("refresh_token") else {
+            completionHandler()
+            return
+        }
+        
+        AF.request(
+            "https://edge.alexchesters.com/aft/auth/refresh/ios",
+            method: .post,
+            parameters: [
+                "refreshToken": refreshToken
+            ],
+            encoding: JSONEncoding.default,
+            interceptor: unauthenticatedRequestsInterceptor
+        ).responseDecodable(of: AuthDataTypes.RefreshTokenResponse.self) { response in
+            guard let result = response.value else {
+                debugPrint(response)
+                print("[ERROR] bad response for access token request")
+                completionHandler()
+                return
+            }
+            
+            keychain.set(result.accessToken, forKey: "access_token")
+            var date = Date()
+            date.addTimeInterval(TimeInterval(result.expiresIn))
+            let formatter = ISO8601DateFormatter()
+            keychain.set(formatter.string(from: date), forKey: "expires_in")
+            
+            completionHandler()
+        }
+    }
+    
+    public func refreshAccessTokenIfNeeded(completionHandler: @escaping () -> Void) async {
         let keychain = KeychainSwift()
         
         if keychain.get("access_token") != nil {
-            guard let expiresIn = keychain.get("expires_in") else { return false }
+            guard let expiresIn = keychain.get("expires_in") else {
+                completionHandler()
+                return
+            }
             
             let formatter = ISO8601DateFormatter()
-            guard var expiryDate = formatter.date(from: expiresIn) else { return false }
+            guard var expiryDate = formatter.date(from: expiresIn) else {
+                completionHandler()
+                return
+            }
             
             // consider tokens due to expire within 5 minutes as expired
             expiryDate.addTimeInterval(TimeInterval(-300))
             
             if expiryDate > Date() {
-                return true
+                completionHandler()
+            } else {
+                await self.refreshToken {
+                    let keychain = KeychainSwift()
+                    guard keychain.get("access_token") != nil else {
+                        completionHandler()
+                        return
+                    }
+                    
+                    completionHandler()
+                }
             }
+        } else {
+            completionHandler()
+            return
         }
-        
-        return false
     }
     
     public func getAccessToken () -> String? {
-        if !self.isAccessTokenValid() { return nil }
-        
         let keychain = KeychainSwift()
-        guard let accessToken = keychain.get("access_token") else {
-            return nil
-        }
+        guard let accessToken = keychain.get("access_token") else { return nil }
         
         return accessToken
     }

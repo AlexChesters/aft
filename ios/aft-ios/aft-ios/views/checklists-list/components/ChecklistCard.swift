@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChecklistCard: View {
-    let checklist: DataTypes.Checklist
+    let checklist: AFTDataTypes.Checklist
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -24,11 +24,11 @@ struct ChecklistCard: View {
 struct ChecklistCard_Previews: PreviewProvider {
     static var previews: some View {
         ChecklistCard(
-            checklist: DataTypes.Checklist(
+            checklist: AFTDataTypes.Checklist(
                 identifier: "abcd-1234",
                 aircraft: "Airbus A319",
                 notes: "Made for the Toliss A319 in XP11",
-                sections: [DataTypes.ChecklistSection(
+                sections: [AFTDataTypes.ChecklistSection(
                     title: "Preflight",
                     entries: [
                         "Flight - Planned",
