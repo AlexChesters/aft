@@ -31,7 +31,6 @@ struct ChecklistEntry: View {
                     }
                     
                     defaults.setValue(persistentState, forKey: "\(identifier)-completed-state")
-                    print("saved state: \(persistentState)")
                 }
         }
         .onAppear {
