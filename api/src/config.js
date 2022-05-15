@@ -37,7 +37,8 @@ module.exports = {
         : '2bkinc2fc0amh3qkvqgvlh0epd',
       redirectUri: isDevelopmentEnvironment
         ? 'http://localhost:8080/auth/callback/ios'
-        : 'https://edge.alexchesters.com/aft/auth/callback/ios'
+        : 'https://edge.alexchesters.com/aft/auth/callback/ios',
+      destinationUri: 'aft://auth/success'
     },
     web: {
       clientId: isDevelopmentEnvironment
@@ -45,7 +46,10 @@ module.exports = {
         : '4h37tr4pcqmmk891lbqg2p7de2',
       redirectUri: isDevelopmentEnvironment
         ? 'http://localhost:8080/auth/callback/web'
-        : 'https://edge.alexchesters.com/aft/auth/callback/ios'
+        : 'https://edge.alexchesters.com/aft/auth/callback/ios',
+      destinationUri: isDevelopmentEnvironment
+        ? 'http://localhost:8081/auth/success'
+        : 'https://projects.alexchesters.com/aft/auth/success'
     }
   },
   callbackURL: callbackURL,

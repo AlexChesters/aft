@@ -36,5 +36,16 @@ module.exports = async (req, res, next) => {
     body: form
   })
 
-  res.json(await tokenResponse.json())
+  try {
+    const tokens = await tokenResponse.json()
+    const destinationUri = new URL(config.cognito.web.destinationUri)
+
+    destinationUri.searchParams.append('access_token', tokens.access_token)
+    destinationUri.searchParams.append('refresh_token', tokens.refresh_token)
+    destinationUri.searchParams.append('expires_in', tokens.expires_in)
+
+    res.redirect(destinationUri.toString())
+  } catch {
+    res.sendStatus(500)
+  }
 }
