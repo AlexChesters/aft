@@ -1,8 +1,8 @@
 import apiUtils from '../../api-utils'
 
 export default {
-  fetchAll: async () => await apiUtils.get('/checklists/list', null, true),
-  fetchOne: async (identifier) => await apiUtils.get(`/checklists/get/${identifier}`, null, true),
+  fetchAll: async () => await apiUtils.get('/checklists/list', {}, true),
+  fetchOne: async (identifier) => await apiUtils.get(`/checklists/get/${identifier}`, {}, true),
   save: async (identifier = '', checklist) => await apiUtils.post('/checklists/update', {
     method: 'POST',
     headers: {

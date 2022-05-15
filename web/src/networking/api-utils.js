@@ -48,8 +48,6 @@ const fetch = async (url, options) => {
 }
 
 const get = async (path, options, authenticated) => {
-  if (!options) options = {}
-
   if (authenticated) {
     await ensureTokenFreshness()
 
@@ -72,8 +70,6 @@ const get = async (path, options, authenticated) => {
 }
 
 const post = async (path, options, authenticated) => {
-  if (!options) options = {}
-
   if (authenticated) {
     await ensureTokenFreshness()
 
