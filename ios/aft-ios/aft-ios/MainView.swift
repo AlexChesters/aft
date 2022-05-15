@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct MainView: View {
+    @EnvironmentObject var user: User
+    
     var body: some View {
         VStack {
-            if AuthUtils().getAccessToken() != nil {
+            if user.isAuthenticated {
                 TabView {
                     ChecklistsList()
                         .tabItem {
@@ -30,6 +32,9 @@ struct MainView: View {
             } else {
                 Auth()
             }
+        }
+        .onAppear {
+            if AuthUtils().getAccessToken() != nil { user.isAuthenticated = true }
         }
     }
 }

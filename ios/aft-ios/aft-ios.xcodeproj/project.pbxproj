@@ -21,6 +21,7 @@
 		ACEE29AC2830070D00D0DCD1 /* ChecklistCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE29AB2830070D00D0DCD1 /* ChecklistCard.swift */; };
 		ACEE29AE28305E3B00D0DCD1 /* ChecklistDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE29AD28305E3B00D0DCD1 /* ChecklistDetail.swift */; };
 		ACEE29B228317E5800D0DCD1 /* ChecklistEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE29B128317E5800D0DCD1 /* ChecklistEntry.swift */; };
+		ACEE29B62831A06100D0DCD1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE29B52831A06100D0DCD1 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		ACEE29AB2830070D00D0DCD1 /* ChecklistCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistCard.swift; sourceTree = "<group>"; };
 		ACEE29AD28305E3B00D0DCD1 /* ChecklistDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistDetail.swift; sourceTree = "<group>"; };
 		ACEE29B128317E5800D0DCD1 /* ChecklistEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistEntry.swift; sourceTree = "<group>"; };
+		ACEE29B52831A06100D0DCD1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B03594C1AF1FBA7949EDC37B /* Pods-aft-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aft-ios.release.xcconfig"; path = "Target Support Files/Pods-aft-ios/Pods-aft-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				ACEE299D282ECE1600D0DCD1 /* Info.plist */,
+				ACEE29B42831A05900D0DCD1 /* model */,
 				ACEE29A72830016300D0DCD1 /* utils */,
 				ACEE29A4282FF4AD00D0DCD1 /* networking */,
 				ACEE2995282ECCCC00D0DCD1 /* views */,
@@ -182,6 +185,14 @@
 				ACEE29A5282FF4B800D0DCD1 /* Interceptors.swift */,
 			);
 			path = utils;
+			sourceTree = "<group>";
+		};
+		ACEE29B42831A05900D0DCD1 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				ACEE29B52831A06100D0DCD1 /* User.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,6 +317,7 @@
 				ACEE29A3282FF42D00D0DCD1 /* AftAPI.swift in Sources */,
 				ACEE299A282ECDDF00D0DCD1 /* ChecklistsList.swift in Sources */,
 				ACEE29A92830016E00D0DCD1 /* AuthUtils.swift in Sources */,
+				ACEE29B62831A06100D0DCD1 /* User.swift in Sources */,
 				ACEE29AE28305E3B00D0DCD1 /* ChecklistDetail.swift in Sources */,
 				ACEE29A6282FF4B800D0DCD1 /* Interceptors.swift in Sources */,
 				ACEE29B228317E5800D0DCD1 /* ChecklistEntry.swift in Sources */,

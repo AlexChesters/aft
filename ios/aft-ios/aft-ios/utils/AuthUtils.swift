@@ -24,7 +24,7 @@ private enum AccessTokenState {
 }
 
 class AuthUtils {
-    public func handleAuthCallback (url: URL) {
+    public func handleAuthCallback (url: URL, user: User) {
         var urlToParse = URLComponents(string: url.absoluteString)
         urlToParse?.query = nil
         if urlToParse?.string?.starts(with: "aft://auth/success") == false {
@@ -53,6 +53,8 @@ class AuthUtils {
             default: break
             }
         }
+        
+        user.isAuthenticated = true
     }
     
     private func refreshToken(completionHandler: @escaping () -> Void) async {
