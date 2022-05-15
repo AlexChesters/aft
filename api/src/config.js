@@ -28,7 +28,19 @@ module.exports = {
       : 'A0z50h51rjmaKX0Lecz6VC0XPWlOwe0k'
   },
   cognito: {
-    domain: 'https://aft.auth.eu-west-1.amazoncognito.com'
+    domain: 'https://aft.auth.eu-west-1.amazoncognito.com',
+    ios: {
+      clientId: '2bkinc2fc0amh3qkvqgvlh0epd',
+      redirectUri: isDevelopmentEnvironment
+        ? 'http://localhost:8080/auth/callback/ios'
+        : 'https://edge.alexchesters.com/aft/auth/callback/ios'
+    },
+    web: {
+      clientId: '4h37tr4pcqmmk891lbqg2p7de2',
+      redirectUri: isDevelopmentEnvironment
+        ? 'http://localhost:8080/auth/callback/web'
+        : 'https://edge.alexchesters.com/aft/auth/callback/ios'
+    }
   },
   callbackURL: callbackURL,
   environment: isDevelopmentEnvironment ? 'DEV' : 'PROD',
