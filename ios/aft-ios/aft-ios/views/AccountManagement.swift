@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct AccountManagement: View {
-    @EnvironmentObject var user: User
-    
     var body: some View {
         VStack {
             Text("Your account")
@@ -17,7 +15,7 @@ struct AccountManagement: View {
             Spacer()
             
             Button("Sign out") {
-                self.user.signOut()
+                AuthUtils().signOut()
             }
         }.padding()
     }

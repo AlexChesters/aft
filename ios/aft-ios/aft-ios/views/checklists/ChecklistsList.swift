@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct ChecklistsList: View {
-    @EnvironmentObject var user: User
-    
+struct ChecklistsList: View {    
     @State private var checklists: [Checklist] = []
     
     var body: some View {

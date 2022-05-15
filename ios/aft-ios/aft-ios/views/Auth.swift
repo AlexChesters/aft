@@ -8,44 +8,20 @@
 import SwiftUI
 
 struct Auth: View {
-    @EnvironmentObject var user: User
-    
-    @State var email: String = ""
-    @State var password: String = ""
-    @State var loading: Bool = false
+    private var signInUrl = "https://aft.auth.eu-west-1.amazoncognito.com/oauth2/authorize?client_id=7i2fmh23s0j3u5nrb29v1qp9qd&response_type=code&scope=email+openid&redirect_uri=https%3A%2F%2Fedge.alexchesters.com%2Faft%2Fauth%2Fcallback%2Fios"
     
     var body: some View {
         VStack {
-            if loading {
-                ProgressView().padding()
-            } else {
-                Spacer()
-                
-                TextField("Email address", text: $email)
-                    .keyboardType(.emailAddress)
-                    .disableAutocorrection(true)
-                    .textInputAutocapitalization(.never)
-                Divider()
-                SecureField("Password", text: $password)
-                    .disableAutocorrection(true)
-                Divider()
-                
-                Spacer()
-                
-                Button("Sign in") {
-                    loading = true
-                    self.user.signIn(
-                        email: self.email,
-                        password: self.password
-                    )
-                }
-            }
+            Link(
+                "Sign in",
+                destination: URL(string: signInUrl)!
+            )
         }.padding()
     }
 }
 
 struct Auth_Previews: PreviewProvider {
     static var previews: some View {
-        Auth().environmentObject(User())
+        Auth()
     }
 }

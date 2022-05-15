@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct aft_iosApp: App {
-    @StateObject private var user = User()
-    
     var body: some Scene {
         WindowGroup {
             MainView()
-                .environmentObject(user)
+                .onOpenURL { url in
+                    AuthUtils().handleAuthCallback(url: url)
+                }
         }
     }
 }

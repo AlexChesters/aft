@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var user: User
-    
     var body: some View {
         VStack {
-            if user.isAuthenticated {
+            if AuthUtils().getAccessToken() != nil {
                 TabView {
                     ChecklistsList()
                         .tabItem {
@@ -38,6 +36,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView().environmentObject(User())
+        MainView()
     }
 }
