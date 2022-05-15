@@ -21,13 +21,10 @@ module.exports = {
   checklistTableName: isDevelopmentEnvironment
     ? 'aft-test-table'
     : 'aft-live-table',
-  auth0: {
-    domain: 'aircraft-checklist.eu.auth0.com',
-    clientId: isDevelopmentEnvironment
-      ? 'eurAmb5r1Hss224GxbvMfIGM2NvHcHCQ'
-      : 'A0z50h51rjmaKX0Lecz6VC0XPWlOwe0k'
-  },
   cognito: {
+    userPoolId: isDevelopmentEnvironment
+      ? 'eu-west-1_J73UIaGgA'
+      : 'eu-west-1_JtBnXlkNb',
     domain: isDevelopmentEnvironment
       ? 'https://dev-aft.auth.eu-west-1.amazoncognito.com'
       : 'https://aft.auth.eu-west-1.amazoncognito.com',

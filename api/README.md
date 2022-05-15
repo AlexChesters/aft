@@ -8,11 +8,6 @@ The [`scripts/`](scripts/) directory contains various scripts which should be
 ran manually on a local machine:
 * [`pipeline.sh`](scripts/pipeline.sh) - this script updates the
 [CloudFormation template](ci/codepipeline.yml) which defines the CodePipeline
-* [`set-auth0-client-secret.sh`](scripts/set-auth0-client-secret.sh) - this
-script updates a Parameter Store entry with the Auth0 client secret; the secret
-must be provided as the first argument
-* [`set-session-secret.sh`](scripts/set-session-secret.sh) - this script updates
-a Parameter Store entry with a secret used to sign the session ID cookie
 * [`set-avwx-token.sh`](scripts/set-avwx-token.sh) - this script updates
 a Parameter Store entry with a token used to authenticate requests to AVWX
 * [`airport-data/generate.js`](scripts/airport-data/generate.js) - this Node.js

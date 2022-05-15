@@ -1,28 +1,27 @@
-const auth0 = require('auth0')
+const { CognitoJwtVerifier } = require('aws-jwt-verify')
 
 const config = require('../config')
 
-module.exports = async (req, res, next) => {
-  const accessToken = req.get('authorization')
+const webVerifier = CognitoJwtVerifier.create({
+  userPoolId: config.cognito.userPoolId,
+  tokenUse: 'access',
+  clientId: config.cognito.web.clientId,
+  scope: ['email', 'openid']
+})
 
-  if (!accessToken) {
+module.exports = async (req, res, next) => {
+  const authHeader = req.get('authorization')
+
+  if (!authHeader) {
     return res.sendStatus(401)
   }
 
   try {
-    const authenticationClient = new auth0.AuthenticationClient({
-      domain: config.auth0.domain,
-      clientId: config.auth0.clientId,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET
-    })
-
-    const response = await authenticationClient.getProfile(accessToken)
-
-    req.user = { userId: response.sub }
-  } catch (ex) {
+    const payload = await webVerifier.verify(authHeader)
+    req.user = { userId: payload.sub }
+    next()
+  } catch (err) {
+    console.error(err)
     res.sendStatus(401)
-    return
   }
-
-  next()
 }

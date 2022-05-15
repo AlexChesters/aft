@@ -334,8 +334,6 @@ Resources:
                 Action:
                   - ssm:GetParameter
                 Resource:
-                  - arn:aws:ssm:eu-west-1:008356366354:parameter/aft-session-secret
-                  - arn:aws:ssm:eu-west-1:008356366354:parameter/aft-auth0-client-secret
                   - arn:aws:ssm:eu-west-1:008356366354:parameter/aft-avwx-secret
   ContainerSecurityGroup:
     Type: AWS::EC2::SecurityGroup

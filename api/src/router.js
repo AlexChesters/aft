@@ -2,8 +2,6 @@ const express = require('express')
 
 const routes = {
   status: require('./routes/status'),
-  signIn: require('./routes/auth/sign-in'),
-  register: require('./routes/auth/register'),
   webCallback: require('./routes/auth/callback/web'),
   iosCallback: require('./routes/auth/callback/ios')
 }
@@ -48,13 +46,11 @@ module.exports = () => {
   )
 
   // authentication routes
-  router.post('/auth/sign-in', middleware.cacheControl.noStore, routes.signIn)
-  router.post('/auth/register', middleware.cacheControl.noStore, routes.register)
   router.get('/auth/callback/web', middleware.cacheControl.noStore, routes.webCallback)
   router.get('/auth/callback/ios', middleware.cacheControl.noStore, routes.iosCallback)
 
   // debugging routes
-  router.post('/debug', middleware.cacheControl.noStore, middleware.ensureAuthenticated, (req, res) => res.sendStatus(200))
+  router.get('/debug', middleware.cacheControl.noStore, middleware.ensureAuthenticated, (req, res) => res.sendStatus(200))
 
   return router
 }

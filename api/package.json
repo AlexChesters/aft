@@ -7,7 +7,7 @@
     "start": "node --trace-warnings src/server.js",
     "watch": "nodemon src/server.js",
     "watch-shared": "NODE_ENV=development-shared nodemon src/server.js",
-    "test": "AUTH0_CLIENT_SECRET=fake SESSION_SECRET=fake jest __test__ && eslint .",
+    "test": "jest --config jest.config.js __test__ && eslint .",
     "load-test": "node load-test/index.js"
   },
   "repository": {
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/alexchesters/aft#readme",
   "dependencies": {
-    "auth0": "^2.40.0",
+    "aws-jwt-verify": "^3.0.0",
     "aws-sdk": "^2.989.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
