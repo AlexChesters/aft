@@ -116,7 +116,8 @@
 		ACEE2995282ECCCC00D0DCD1 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				ACEE29A1282FF1E900D0DCD1 /* checklists */,
+				ACEE29AF28317E2700D0DCD1 /* checklists-detail */,
+				ACEE29A1282FF1E900D0DCD1 /* checklists-list */,
 				ACEE299B282ECDE700D0DCD1 /* Auth.swift */,
 				ACEE299F282F0BC000D0DCD1 /* AccountManagement.swift */,
 			);
@@ -131,14 +132,13 @@
 			path = model;
 			sourceTree = "<group>";
 		};
-		ACEE29A1282FF1E900D0DCD1 /* checklists */ = {
+		ACEE29A1282FF1E900D0DCD1 /* checklists-list */ = {
 			isa = PBXGroup;
 			children = (
 				ACEE29AA2830040000D0DCD1 /* components */,
 				ACEE2999282ECDDF00D0DCD1 /* ChecklistsList.swift */,
-				ACEE29AD28305E3B00D0DCD1 /* ChecklistDetail.swift */,
 			);
-			path = checklists;
+			path = "checklists-list";
 			sourceTree = "<group>";
 		};
 		ACEE29A4282FF4AD00D0DCD1 /* networking */ = {
@@ -163,6 +163,14 @@
 				ACEE29AB2830070D00D0DCD1 /* ChecklistCard.swift */,
 			);
 			path = components;
+			sourceTree = "<group>";
+		};
+		ACEE29AF28317E2700D0DCD1 /* checklists-detail */ = {
+			isa = PBXGroup;
+			children = (
+				ACEE29AD28305E3B00D0DCD1 /* ChecklistDetail.swift */,
+			);
+			path = "checklists-detail";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
