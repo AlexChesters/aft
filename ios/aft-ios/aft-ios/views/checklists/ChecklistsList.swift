@@ -18,9 +18,7 @@ struct ChecklistsList: View {
                         ProgressView()
                     } else {
                         ForEach(checklists) { checklist in
-                            NavigationLink {
-                                Text("Hello")
-                            } label: {
+                            NavigationLink(destination: ChecklistView(checklist: checklist)) {
                                 ChecklistCard(checklist: checklist)
                             }
                             .buttonStyle(.plain)

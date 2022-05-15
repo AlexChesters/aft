@@ -24,18 +24,16 @@ struct ChecklistCard_Previews: PreviewProvider {
     static var previews: some View {
         ChecklistCard(
             checklist: Checklist(
-                data: ChecklistAPIType(
-                    identifier: "abcd-1234",
-                    aircraft: "Airbus A319",
-                    notes: "Made for the Toliss A319 in XP11",
-                    sections: [ChecklistSection(
-                        title: "Preflight",
-                        entries: [
-                            "Flight - Planned",
-                            "smartCARS - Started"
-                        ]
-                    )]
-                )
+                identifier: "abcd-1234",
+                aircraft: "Airbus A319",
+                notes: "Made for the Toliss A319 in XP11",
+                sections: [ChecklistSection(
+                    title: "Preflight",
+                    entries: [
+                        "Flight - Planned",
+                        "smartCARS - Started"
+                    ]
+                )]
             )
         )
     }
