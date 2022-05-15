@@ -1,5 +1,5 @@
 //
-//  ChecklistView.swift
+//  ChecklistDetail.swift
 //  aft-ios
 //
 //  Created by Alex Chesters on 14/05/2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ChecklistView: View {
+struct ChecklistDetail: View {
     let checklist: Checklist
     
     var body: some View {
@@ -47,9 +47,9 @@ struct ChecklistView: View {
     }
 }
 
-struct Checklist_Previews: PreviewProvider {
+struct ChecklistDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ChecklistView(checklist: Checklist(
+        ChecklistDetail(checklist: Checklist(
             identifier: "abcd-1234",
             aircraft: "Airbus A319",
             notes: "Made for the Toliss A319 in XP11",
