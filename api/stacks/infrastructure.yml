@@ -9,72 +9,136 @@ Parameters:
     Type: String
     Default: aft-live
 Resources:
-  # UserPool:
-  #   Type: AWS::Cognito::UserPool
-  #   Properties:
-  #     MfaConfiguration: "OFF"
-  #     Policies:
-  #       PasswordPolicy:
-  #         MinimumLength: 12
-  #         RequireLowercase: false
-  #         RequireNumbers: false
-  #         RequireSymbols: false
-  #         RequireUppercase: false
-  #         TemporaryPasswordValidityDays: 3
-  #     UsernameAttributes:
-  #       - email
-  #     UsernameConfiguration:
-  #       CaseSensitive: false
-  #     UserPoolName: aft
-  # UserPoolDomain:
-  #   Type: AWS::Cognito::UserPoolDomain
-  #   Properties:
-  #     Domain: aft
-  #     UserPoolId: !Ref UserPool
-  # iOSClient:
-  #   Type: AWS::Cognito::UserPoolClient
-  #   Properties:
-  #     AccessTokenValidity: 2 # hours
-  #     AllowedOAuthFlows:
-  #       - code
-  #     AllowedOAuthFlowsUserPoolClient: true
-  #     AllowedOAuthScopes:
-  #       - openid
-  #       - email
-  #     CallbackURLs:
-  #       - http://localhost:8080/auth/callback/ios
-  #       - https://edge.alexchesters.com/aft/auth/callback/ios
-  #     ClientName: ios-client
-  #     DefaultRedirectURI: https://edge.alexchesters.com/aft/auth/callback/ios
-  #     EnableTokenRevocation: true
-  #     IdTokenValidity: 2 # hours
-  #     PreventUserExistenceErrors: ENABLED
-  #     RefreshTokenValidity: 365 # days
-  #     SupportedIdentityProviders:
-  #       - COGNITO
-  #     UserPoolId: !Ref UserPool
-  # WebClient:
-  #   Type: AWS::Cognito::UserPoolClient
-  #   Properties:
-  #     AccessTokenValidity: 2 # hours
-  #     AllowedOAuthFlows:
-  #       - code
-  #     AllowedOAuthFlowsUserPoolClient: true
-  #     AllowedOAuthScopes:
-  #       - openid
-  #       - email
-  #     CallbackURLs:
-  #       - http://localhost:8080/auth/callback/web
-  #       - https://edge.alexchesters.com/aft/auth/callback/web
-  #     ClientName: web-client
-  #     DefaultRedirectURI: https://edge.alexchesters.com/aft/auth/callback/web
-  #     EnableTokenRevocation: true
-  #     IdTokenValidity: 2 # hours
-  #     PreventUserExistenceErrors: ENABLED
-  #     RefreshTokenValidity: 365 # days
-  #     SupportedIdentityProviders:
-  #       - COGNITO
-  #     UserPoolId: !Ref UserPool
+  TestUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      MfaConfiguration: "OFF"
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 12
+          RequireLowercase: false
+          RequireNumbers: false
+          RequireSymbols: false
+          RequireUppercase: false
+          TemporaryPasswordValidityDays: 3
+      UsernameAttributes:
+        - email
+      UsernameConfiguration:
+        CaseSensitive: false
+      UserPoolName: aft-test
+  TestUserPoolDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: dev.aft
+      UserPoolId: !Ref TestUserPool
+  TestiOSClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      AccessTokenValidity: 2 # hours
+      AllowedOAuthFlows:
+        - code
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthScopes:
+        - openid
+        - email
+      CallbackURLs:
+        - http://localhost:8080/auth/callback/ios
+        - https://edge.alexchesters.com/aft/auth/callback/ios
+      ClientName: ios-client
+      DefaultRedirectURI: http://localhost:8080/auth/callback/ios
+      EnableTokenRevocation: true
+      IdTokenValidity: 2 # hours
+      PreventUserExistenceErrors: ENABLED
+      RefreshTokenValidity: 365 # days
+      SupportedIdentityProviders:
+        - COGNITO
+      UserPoolId: !Ref TestUserPool
+  TestWebClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      AccessTokenValidity: 2 # hours
+      AllowedOAuthFlows:
+        - code
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthScopes:
+        - openid
+        - email
+      CallbackURLs:
+        - http://localhost:8080/auth/callback/web
+        - https://edge.alexchesters.com/aft/auth/callback/web
+      ClientName: web-client
+      DefaultRedirectURI: http://localhost:8080/auth/callback/web
+      EnableTokenRevocation: true
+      IdTokenValidity: 2 # hours
+      PreventUserExistenceErrors: ENABLED
+      RefreshTokenValidity: 365 # days
+      SupportedIdentityProviders:
+        - COGNITO
+      UserPoolId: !Ref TestUserPool
+  LiveUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      MfaConfiguration: "OFF"
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 12
+          RequireLowercase: false
+          RequireNumbers: false
+          RequireSymbols: false
+          RequireUppercase: false
+          TemporaryPasswordValidityDays: 3
+      UsernameAttributes:
+        - email
+      UsernameConfiguration:
+        CaseSensitive: false
+      UserPoolName: aft-live
+  LiveUserPoolDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: aft
+      UserPoolId: !Ref LiveUserPool
+  LiveiOSClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      AccessTokenValidity: 2 # hours
+      AllowedOAuthFlows:
+        - code
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthScopes:
+        - openid
+        - email
+      CallbackURLs:
+        - https://edge.alexchesters.com/aft/auth/callback/ios
+      ClientName: ios-client
+      DefaultRedirectURI: https://edge.alexchesters.com/aft/auth/callback/ios
+      EnableTokenRevocation: true
+      IdTokenValidity: 2 # hours
+      PreventUserExistenceErrors: ENABLED
+      RefreshTokenValidity: 365 # days
+      SupportedIdentityProviders:
+        - COGNITO
+      UserPoolId: !Ref LiveUserPool
+  LiveWebClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      AccessTokenValidity: 2 # hours
+      AllowedOAuthFlows:
+        - code
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthScopes:
+        - openid
+        - email
+      CallbackURLs:
+        - https://edge.alexchesters.com/aft/auth/callback/web
+      ClientName: web-client
+      DefaultRedirectURI: https://edge.alexchesters.com/aft/auth/callback/web
+      EnableTokenRevocation: true
+      IdTokenValidity: 2 # hours
+      PreventUserExistenceErrors: ENABLED
+      RefreshTokenValidity: 365 # days
+      SupportedIdentityProviders:
+        - COGNITO
+      UserPoolId: !Ref LiveUserPool
   Repository:
     Type: AWS::ECR::Repository
     Properties:
