@@ -14,8 +14,8 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   const token = auth.get('accessToken')
   const expires = new Date(auth.get('expiresIn'))
 
-  // consider tokens due to expire within 1 hour as expired
-  expires.setHours(expires.getHours() - 1)
+  // consider tokens due to expire within 30 minutes as expired
+  expires.setMinutes(expires.setMinutes() - 30)
 
   if (token) {
     if (new Date() <= expires) {
