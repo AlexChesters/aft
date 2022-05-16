@@ -15,8 +15,6 @@ private enum KeychainKeyPrefixes: String {
 class PersistentStorage {
     private let keychain = KeychainSwift()
     
-    init() {}
-    
     public func saveChecklistState (completedEntries: [String], checklistIdentifier: String) {
         guard let data = self.stringArrayToData(stringArray: completedEntries) else { return }
         
