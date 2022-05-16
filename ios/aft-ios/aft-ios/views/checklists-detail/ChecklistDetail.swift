@@ -64,6 +64,7 @@ struct ChecklistDetail: View {
                                 completedEntries = persistentState
                             }
                         )
+                        
                         Divider()
                     }
                     

@@ -14,16 +14,20 @@ struct ChecklistEntry: View {
     let onTapped: () -> Void
     
     var body: some View {
-        HStack {
-            Text(entry)
-                .strikethrough(completed)
-                .opacity(completed ? 0.2 : 1.0)
-                .font(.system(size: 26))
-                .onTapGesture {
-                    
-                    onTapped()
-                }
+        Button(action: { onTapped() }) {
+            HStack {
+                Text(entry)
+                    .strikethrough(completed)
+                    .opacity(completed ? 0.2 : 1.0)
+                    .font(.system(size: 26))
+            }
         }
+        .buttonStyle(.plain)
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            alignment: .leading
+        )
     }
 }
 
