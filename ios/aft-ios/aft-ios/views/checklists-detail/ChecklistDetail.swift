@@ -15,8 +15,25 @@ struct ChecklistDetail: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Text(checklist.aircraft)
-                    .font(.system(size: 40))
+                HStack {
+                    Text(checklist.aircraft)
+                        .font(.system(size: 40))
+                    
+                    Spacer()
+                    
+                    Button {
+                        let defaults = UserDefaults.standard
+                        
+                        DispatchQueue.main.async {
+                            defaults.removeObject(forKey: "\(checklist.identifier)-completed-state")
+                            completedEntries = []
+                        }
+                    } label: {
+                        Image(systemName: "xmark.circle")
+                    }
+                    .buttonStyle(.plain)
+                    .font(.system(size: 24))
+                }
                 Text(checklist.notes)
                     .font(.system(size: 24))
                     .italic()
