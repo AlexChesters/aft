@@ -54,7 +54,7 @@ struct ChecklistDetail: View {
                             entry: entry,
                             completed: completedEntries.contains(entry),
                             onTapped: {
-                                var persistentState = persistentStorage.get() ?? []
+                                var persistentState = persistentStorage.get() 
                                 
                                 if persistentState.contains(entry) {
                                     persistentState.removeAll(where: { $0 == entry })
@@ -83,7 +83,7 @@ struct ChecklistDetail: View {
         }
         .padding()
         .onAppear {
-            completedEntries = persistentStorage.get() ?? []
+            completedEntries = persistentStorage.get() 
         }
     }
 }

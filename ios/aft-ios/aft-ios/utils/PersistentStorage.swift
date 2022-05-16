@@ -31,10 +31,10 @@ class ChecklistProgressStorage {
         self.keychain.set(data, forKey: self.keychainKey)
     }
     
-    public func get () -> [String]? {
-        guard let data = self.keychain.getData(self.keychainKey) else { return nil }
+    public func get () -> [String] {
+        guard let data = self.keychain.getData(self.keychainKey) else { return [] }
         
-        guard let completedEntries = self.dataToStringArray(data: data) else { return nil }
+        guard let completedEntries = self.dataToStringArray(data: data) else { return [] }
         
         return completedEntries
     }
