@@ -10,8 +10,8 @@ import SwiftUI
 struct ChecklistEntry: View {
     let identifier: String
     let entry: String
-    
-    @State var completed: Bool = false
+    let completed: Bool
+    let onTapped: () -> Void
     
     var body: some View {
         HStack {
@@ -20,25 +20,9 @@ struct ChecklistEntry: View {
                 .opacity(completed ? 0.2 : 1.0)
                 .font(.system(size: 26))
                 .onTapGesture {
-                    completed.toggle()
-                    let defaults = UserDefaults.standard
                     
-                    var persistentState = defaults.object(forKey: "\(identifier)-completed-state") as? [String] ?? []
-                    
-                    if persistentState.contains(entry) {
-                        persistentState.removeAll(where: { $0 == entry })
-                    } else {
-                        persistentState.append(entry)
-                    }
-                    
-                    defaults.setValue(persistentState, forKey: "\(identifier)-completed-state")
+                    onTapped()
                 }
-        }
-        .onAppear {
-            let defaults = UserDefaults.standard
-            
-            let completedEntries = defaults.object(forKey: "\(identifier)-completed-state") as? [String] ?? []
-            completed = completedEntries.contains(entry)
         }
     }
 }
@@ -47,7 +31,9 @@ struct ChecklistEntry_Previews: PreviewProvider {
     static var previews: some View {
         ChecklistEntry(
             identifier: "abcd1234",
-            entry: "Battery 1 + 2 - ON"
+            entry: "Battery 1 + 2 - ON",
+            completed: true,
+            onTapped: {}
         )
     }
 }
