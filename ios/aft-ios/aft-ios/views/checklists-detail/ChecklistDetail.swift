@@ -12,7 +12,9 @@ struct ChecklistDetail: View {
     
     @State private var completedEntries: [String] = []
     
-    private let persistentStorage = PersistentStorage()
+    private var persistentStorage: ChecklistProgressStorage {
+        ChecklistProgressStorage(identifier: self.checklist.identifier)
+    }
     
     var body: some View {
         ScrollView {
@@ -24,7 +26,7 @@ struct ChecklistDetail: View {
                     Spacer()
                     
                     Button {
-                        persistentStorage.clearChecklistState(checklistIdentifier: checklist.identifier)
+                        persistentStorage.clear()
                         completedEntries = []
                     } label: {
                         Image(systemName: "xmark.circle")
@@ -52,7 +54,7 @@ struct ChecklistDetail: View {
                             entry: entry,
                             completed: completedEntries.contains(entry),
                             onTapped: {
-                                var persistentState = persistentStorage.getChecklistState(checklistIdentifier: checklist.identifier) ?? []
+                                var persistentState = persistentStorage.get() ?? []
                                 
                                 if persistentState.contains(entry) {
                                     persistentState.removeAll(where: { $0 == entry })
@@ -60,7 +62,7 @@ struct ChecklistDetail: View {
                                     persistentState.append(entry)
                                 }
                                 
-                                persistentStorage.saveChecklistState(completedEntries: persistentState, checklistIdentifier: checklist.identifier)
+                                persistentStorage.save(completedEntries: persistentState)
                                 completedEntries = persistentState
                             }
                         )
@@ -81,7 +83,7 @@ struct ChecklistDetail: View {
         }
         .padding()
         .onAppear {
-            completedEntries = persistentStorage.getChecklistState(checklistIdentifier: checklist.identifier) ?? []
+            completedEntries = persistentStorage.get() ?? []
         }
     }
 }

@@ -12,29 +12,35 @@ private enum KeychainKeyPrefixes: String {
     case checklist = "AFT_CHECKLIST"
 }
 
-class PersistentStorage {
-    private let keychain = KeychainSwift()
+class ChecklistProgressStorage {
+    // MARK: public properties
+    public let identifier: String
     
-    public func saveChecklistState (completedEntries: [String], checklistIdentifier: String) {
-        guard let data = self.stringArrayToData(stringArray: completedEntries) else { return }
-        
-        let key = "\(KeychainKeyPrefixes.checklist.rawValue)-\(checklistIdentifier)"
-        
-        self.keychain.set(data, forKey: key)
+    // MARK: private properties
+    private let keychain = KeychainSwift()
+    private let keychainKey: String
+    
+    init (identifier: String) {
+        self.identifier = identifier
+        self.keychainKey = "\(KeychainKeyPrefixes.checklist.rawValue)-\(identifier)"
     }
     
-    public func getChecklistState (checklistIdentifier: String) -> [String]? {
-        let key = "\(KeychainKeyPrefixes.checklist.rawValue)-\(checklistIdentifier)"
-        guard let data = self.keychain.getData(key) else { return nil }
+    public func save (completedEntries: [String]) {
+        guard let data = self.stringArrayToData(stringArray: completedEntries) else { return }
+        
+        self.keychain.set(data, forKey: self.keychainKey)
+    }
+    
+    public func get () -> [String]? {
+        guard let data = self.keychain.getData(self.keychainKey) else { return nil }
         
         guard let completedEntries = self.dataToStringArray(data: data) else { return nil }
         
         return completedEntries
     }
     
-    public func clearChecklistState (checklistIdentifier: String) {
-        let key = "\(KeychainKeyPrefixes.checklist.rawValue)-\(checklistIdentifier)"
-        self.keychain.delete(key)
+    public func clear () {
+        self.keychain.delete(self.keychainKey)
     }
     
     private func stringArrayToData(stringArray: [String]) -> Data? {
