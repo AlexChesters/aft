@@ -23,6 +23,7 @@ const Home = () => {
     error
       ? setErrored(true)
       : setChecklists(data)
+
     setLoading(false)
   }
 

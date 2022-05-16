@@ -19,8 +19,6 @@ const Viewer = () => {
   async function fetchData () {
     const { data, error } = await apiClient.checklists.fetchOne(identifier)
 
-    setLoading(false)
-
     if (error) {
       setErrored(true)
       return

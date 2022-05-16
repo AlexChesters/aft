@@ -19,10 +19,11 @@ const Edit = () => {
   async function fetchData () {
     const { error, data } = await apiClient.checklists.fetchOne(identifier)
 
-    setLoading(false)
     error
       ? setErrored(true)
       : setChecklist(data)
+
+    setLoading(false)
   }
 
   useEffect(() => {
