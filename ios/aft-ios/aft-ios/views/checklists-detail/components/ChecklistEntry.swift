@@ -20,14 +20,15 @@ struct ChecklistEntry: View {
                     .strikethrough(completed)
                     .opacity(completed ? 0.2 : 1.0)
                     .font(.system(size: 26))
+                    .frame(
+                        minWidth: 0,
+                        maxWidth: .infinity,
+                        alignment: .leading
+                    )
             }
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            alignment: .leading
-        )
     }
 }
 
