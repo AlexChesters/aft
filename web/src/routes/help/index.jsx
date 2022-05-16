@@ -1,8 +1,11 @@
 import React from 'react'
 
 import isStandaloneMode from '../../utils/is-standalone-mode'
+import persistentStorage from '../../utils/persistent-storage'
 
 import './index.scss'
+
+const auth = persistentStorage.auth
 
 const Help = () => {
   const mailSubject = 'aft Help'
@@ -20,7 +23,8 @@ const Help = () => {
       <p>
         Version: {process.env.VERSION} <br />
         Standalone: {`${isStandaloneMode}`} <br />
-        User-agent: {navigator.userAgent}
+        User-agent: {navigator.userAgent} <br />
+        Auth expires: {auth.get('expiresIn')}
       </p>
     </section>
   )
