@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		748BB3EC34D1AAB0ED52386B /* Pods_aft_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2AB6A5CEBE58A9ED19E608 /* Pods_aft_ios.framework */; };
+		AC8308A0283280C9008463E0 /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83089F283280C9008463E0 /* PersistentStorage.swift */; };
 		ACEE2988282ECCA800D0DCD1 /* aft_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE2987282ECCA800D0DCD1 /* aft_iosApp.swift */; };
 		ACEE298A282ECCA800D0DCD1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE2989282ECCA800D0DCD1 /* MainView.swift */; };
 		ACEE298C282ECCAA00D0DCD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACEE298B282ECCAA00D0DCD1 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		5D2AB6A5CEBE58A9ED19E608 /* Pods_aft_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_aft_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		680A3A1130058D0C5794C07E /* Pods-aft-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aft-ios.debug.xcconfig"; path = "Target Support Files/Pods-aft-ios/Pods-aft-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		AC83089F283280C9008463E0 /* PersistentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
 		ACEE2984282ECCA800D0DCD1 /* aft-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "aft-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACEE2987282ECCA800D0DCD1 /* aft_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aft_iosApp.swift; sourceTree = "<group>"; };
 		ACEE2989282ECCA800D0DCD1 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				ACEE29A82830016E00D0DCD1 /* AuthUtils.swift */,
+				AC83089F283280C9008463E0 /* PersistentStorage.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				ACEE29AE28305E3B00D0DCD1 /* ChecklistDetail.swift in Sources */,
 				ACEE29A6282FF4B800D0DCD1 /* Interceptors.swift in Sources */,
 				ACEE29B228317E5800D0DCD1 /* ChecklistEntry.swift in Sources */,
+				AC8308A0283280C9008463E0 /* PersistentStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

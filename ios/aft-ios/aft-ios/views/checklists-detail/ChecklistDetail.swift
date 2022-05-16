@@ -12,6 +12,8 @@ struct ChecklistDetail: View {
     
     @State private var completedEntries: [String] = []
     
+    private let persistentStorage = PersistentStorage()
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -22,12 +24,8 @@ struct ChecklistDetail: View {
                     Spacer()
                     
                     Button {
-                        let defaults = UserDefaults.standard
-                        
-                        DispatchQueue.main.async {
-                            defaults.removeObject(forKey: "\(checklist.identifier)-completed-state")
-                            completedEntries = []
-                        }
+                        persistentStorage.clearChecklistState(checklistIdentifier: checklist.identifier)
+                        completedEntries = []
                     } label: {
                         Image(systemName: "xmark.circle")
                     }
@@ -54,9 +52,7 @@ struct ChecklistDetail: View {
                             entry: entry,
                             completed: completedEntries.contains(entry),
                             onTapped: {
-                                let defaults = UserDefaults.standard
-                                
-                                var persistentState = defaults.object(forKey: "\(checklist.identifier)-completed-state") as? [String] ?? []
+                                var persistentState = persistentStorage.getChecklistState(checklistIdentifier: checklist.identifier) ?? []
                                 
                                 if persistentState.contains(entry) {
                                     persistentState.removeAll(where: { $0 == entry })
@@ -64,10 +60,8 @@ struct ChecklistDetail: View {
                                     persistentState.append(entry)
                                 }
                                 
-                                DispatchQueue.main.async {
-                                    defaults.setValue(persistentState, forKey: "\(checklist.identifier)-completed-state")
-                                    completedEntries = persistentState
-                                }
+                                persistentStorage.saveChecklistState(completedEntries: persistentState, checklistIdentifier: checklist.identifier)
+                                completedEntries = persistentState
                             }
                         )
                         Divider()
@@ -86,9 +80,7 @@ struct ChecklistDetail: View {
         }
         .padding()
         .onAppear {
-            let defaults = UserDefaults.standard
-            
-            completedEntries = defaults.object(forKey: "\(checklist.identifier)-completed-state") as? [String] ?? []
+            completedEntries = persistentStorage.getChecklistState(checklistIdentifier: checklist.identifier) ?? []
         }
     }
 }
