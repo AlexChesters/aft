@@ -381,3 +381,68 @@ Resources:
             - "/aft/*"
       ListenerArn: !ImportValue api-edge-infrastructure-listener-arn
       Priority: 3
+  SignUpAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmActions:
+        - !ImportValue core-infrastructure-eu-west-1-alarm-topic-arn
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      EvaluationPeriods: 1
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: testiOSPoolSignUps
+          MetricStat:
+            Stat: Count
+            Period: 86400 # one day
+            Metric:
+              Dimensions:
+                - Name: UserPool
+                  Value: !Ref TestUserPool
+                - Name: UserPoolClient
+                  Value: !Ref TestiOSClient
+              Namespace: AWS/Cognito
+              MetricName: SignUpSuccesses
+          ReturnData: false
+        - Id: testWebPoolSignUps
+          MetricStat:
+            Stat: Count
+            Period: 86400 # one day
+            Metric:
+              Dimensions:
+                - Name: UserPool
+                  Value: !Ref TestUserPool
+                - Name: UserPoolClient
+                  Value: !Ref TestWebClient
+              Namespace: AWS/Cognito
+              MetricName: SignUpSuccesses
+          ReturnData: false
+        - Id: liveiOSPoolSignUps
+          MetricStat:
+            Stat: Count
+            Period: 86400 # one day
+            Metric:
+              Dimensions:
+                - Name: UserPool
+                  Value: !Ref LiveUserPool
+                - Name: UserPoolClient
+                  Value: !Ref LiveiOSClient
+              Namespace: AWS/Cognito
+              MetricName: SignUpSuccesses
+          ReturnData: false
+        - Id: liveWebPoolSignUps
+          MetricStat:
+            Stat: Count
+            Period: 86400 # one day
+            Metric:
+              Dimensions:
+                - Name: UserPool
+                  Value: !Ref LiveUserPool
+                - Name: UserPoolClient
+                  Value: !Ref LiveWebClient
+              Namespace: AWS/Cognito
+              MetricName: SignUpSuccesses
+          ReturnData: false
+        - Id: totalSignUps
+          Expression: testiOSPoolSignUps + testWebPoolSignUps + liveiOSPoolSignUps + liveWebPoolSignUps
+          ReturnData: true
+      Threshold: 2
