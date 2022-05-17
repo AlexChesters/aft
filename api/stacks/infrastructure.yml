@@ -440,5 +440,6 @@ Resources:
           ReturnData: false
         - Id: totalSignUps
           Expression: testiOSPoolSignUps + testWebPoolSignUps + liveiOSPoolSignUps + liveWebPoolSignUps
+          Period: 86400 # one day
           ReturnData: true
       Threshold: 2
