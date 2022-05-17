@@ -472,16 +472,3 @@ Resources:
             }
           ]
         }
-  Auth0SESUser:
-    Type: AWS::IAM::User
-    Properties:
-      Policies:
-        - PolicyName: ses-policy
-          PolicyDocument:
-            Statement:
-              - Effect: Allow
-                Action:
-                  - ses:SendRawEmail
-                  - ses:SendEmail
-                Resource:
-                  - "*"
