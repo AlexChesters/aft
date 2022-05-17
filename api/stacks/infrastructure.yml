@@ -388,7 +388,8 @@ Resources:
       Metrics:
         - Id: testiOSPoolSignUps
           MetricStat:
-            Stat: Count
+            Stat: Sum
+            Unit: Count
             Period: 86400 # one day
             Metric:
               Dimensions:
@@ -401,7 +402,8 @@ Resources:
           ReturnData: false
         - Id: testWebPoolSignUps
           MetricStat:
-            Stat: Count
+            Stat: Sum
+            Unit: Count
             Period: 86400 # one day
             Metric:
               Dimensions:
@@ -414,7 +416,8 @@ Resources:
           ReturnData: false
         - Id: liveiOSPoolSignUps
           MetricStat:
-            Stat: Count
+            Stat: Sum
+            Unit: Count
             Period: 86400 # one day
             Metric:
               Dimensions:
@@ -427,7 +430,8 @@ Resources:
           ReturnData: false
         - Id: liveWebPoolSignUps
           MetricStat:
-            Stat: Count
+            Stat: Sum
+            Unit: Count
             Period: 86400 # one day
             Metric:
               Dimensions:
