@@ -4,10 +4,6 @@ Parameters:
     Description: The version of the ECR image to deployment
     Type: String
     Default: 7c6cb8049a8aad0fdfeeaf6964fb9f7936cf7cec
-  MetricNamespace:
-    Description: The namespace where CloudWatch metrics are stored
-    Type: String
-    Default: aft-live
 Resources:
   TestUserPool:
     Type: AWS::Cognito::UserPool
