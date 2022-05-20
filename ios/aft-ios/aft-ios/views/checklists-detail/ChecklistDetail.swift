@@ -52,14 +52,14 @@ struct ChecklistDetail: View {
                         ChecklistEntry(
                             identifier: checklist.identifier,
                             entry: entry,
-                            completed: completedEntries.contains(entry),
+                            completed: completedEntries.contains("\(section.title)-\(entry)"),
                             onTapped: {
                                 var persistentState = persistentStorage.get() 
                                 
-                                if persistentState.contains(entry) {
+                                if persistentState.contains("\(section.title)-\(entry)") {
                                     persistentState.removeAll(where: { $0 == entry })
                                 } else {
-                                    persistentState.append(entry)
+                                    persistentState.append("\(section.title)-\(entry)")
                                 }
                                 
                                 persistentStorage.save(completedEntries: persistentState)
