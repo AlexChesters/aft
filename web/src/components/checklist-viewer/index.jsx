@@ -60,7 +60,8 @@ const ChecklistViewer = ({ checklist, showButtons }) => {
     checklist.sections.forEach((section) => {
       content.push({
         text: section.title,
-        style: 'sectionHeader'
+        style: 'sectionHeader',
+        lineHeight: 1.25
       })
 
       section.entries.forEach((entry, index, arr) => {
@@ -76,16 +77,19 @@ const ChecklistViewer = ({ checklist, showButtons }) => {
       pageSize: 'a4',
       styles: {
         title: {
-          fontSize: 18,
-          bold: true
+          fontSize: 20,
+          bold: true,
+          decoration: 'underline',
+          color: '#2fc187'
         },
         subtitle: {
           fontSize: 12,
           italics: true
         },
         sectionHeader: {
-          fontSize: 16,
-          bold: true
+          fontSize: 14,
+          bold: true,
+          color: '#2fc187'
         }
       },
       content
