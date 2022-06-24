@@ -150,6 +150,11 @@
     "icaoCode": "BE9L"
   },
   {
+    "name": "Beechcraft Model 18",
+    "value": "Beechcraft Model 18",
+    "icaoCode": "BE18"
+  },
+  {
     "name": "Beechcraft Premier 1A",
     "value": "Beechcraft Premier 1A",
     "icaoCode": "PRM1"
