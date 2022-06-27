@@ -85,6 +85,11 @@
     "icaoCode": "A359"
   },
   {
+    "name": "Airbus H135",
+    "value": "Airbus H135",
+    "icaoCode": "EC35"
+  },
+  {
     "name": "Antonov An-24",
     "value": "Antonov An-24",
     "icaoCode": "AN24"
