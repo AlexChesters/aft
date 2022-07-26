@@ -440,6 +440,16 @@
     "icaoCode": "KODI"
   },
   {
+    "name": "Daher TBM 900",
+    "value": "Daher TBM 900",
+    "icaoCode": "TBM9"
+  },
+  {
+    "name": "Daher TBM 930",
+    "value": "Daher TBM 930",
+    "icaoCode": "TBM9"
+  },
+  {
     "name": "Dassault Falcon 50",
     "value": "Dassault Falcon 50",
     "icaoCode": "FA50"
@@ -698,16 +708,6 @@
     "name": "SIAI-Marchetti SF260",
     "value": "SIAI-Marchetti SF260",
     "icaoCode": "F260"
-  },
-  {
-    "name": "Socata TBM 900",
-    "value": "Socata TBM 900",
-    "icaoCode": "TBM9"
-  },
-  {
-    "name": "Socata TBM 930",
-    "value": "Socata TBM 930",
-    "icaoCode": "TBM9"
   },
   {
     "name": "Sukhoi Superjet 100",
