@@ -202,7 +202,6 @@ Resources:
           AssignPublicIp: ENABLED
           Subnets:
             - !ImportValue core-infrastructure-eu-west-1-public-subnet-one-id
-            - !ImportValue core-infrastructure-eu-west-1-public-subnet-two-id
           SecurityGroups:
             - !Ref ContainerSecurityGroup
       LoadBalancers:
