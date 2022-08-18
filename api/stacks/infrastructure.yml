@@ -371,7 +371,11 @@ Resources:
         - IpProtocol: tcp
           ToPort: 22
           FromPort: 22
-          CidrIp: 0.0.0.0/0
+          CidrIp: !ImportValue core-infrastructure-eu-west-1-public-subnet-one-range
+        - IpProtocol: tcp
+          ToPort: 22
+          FromPort: 22
+          CidrIp: !ImportValue core-infrastructure-eu-west-1-public-subnet-two-range
       VpcId: !ImportValue core-infrastructure-eu-west-1-vpc-id
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
@@ -420,8 +424,8 @@ Resources:
       TargetGroupARNs:
         - !Ref TargetGroup
       VPCZoneIdentifier:
-        - !ImportValue core-infrastructure-eu-west-1-public-subnet-one-id
-        - !ImportValue core-infrastructure-eu-west-1-public-subnet-two-id
+        - !ImportValue core-infrastructure-eu-west-1-private-subnet-one-id
+        - !ImportValue core-infrastructure-eu-west-1-private-subnet-two-id
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
