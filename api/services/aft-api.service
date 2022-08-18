@@ -1,0 +1,17 @@
+[Unit]
+Description=aft-api
+After=network.target nss-lookup.target
+
+[Service]
+ExecStart=/usr/bin/npm start
+WorkingDirectory=/usr/lib/aft-api
+Restart=always
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=aft-api
+User=aft-api
+Group=aft-api
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
