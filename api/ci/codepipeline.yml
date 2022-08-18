@@ -83,7 +83,7 @@ Resources:
         Image: aws/codebuild/standard:5.0
         PrivilegedMode: true
         Type: LINUX_CONTAINER
-      ServiceRole: !Ref BuildCodeBuildRole
+      ServiceRole: !Ref CodeBuildRole
       Source:
         Type: CODEPIPELINE
         BuildSpec: api/buildspec.ami.yml
