@@ -39,26 +39,6 @@ describe('persistent storage', () => {
     })
   })
 
-  describe('settings', () => {
-    const storage = persistentStorage.settings
-
-    describe('set', () => {
-      it('should allow settings to be set', () => {
-        storage.set('amelia', 'earhart')
-
-        expect(window.localStorage.setItem).toHaveBeenCalledWith('aft_PERSISTENT_SETTINGS', JSON.stringify({ amelia: 'earhart' }))
-      })
-    })
-
-    describe('get', () => {
-      it('should allow settings to be get', () => {
-        storage.set('amelia', 'earhart')
-
-        expect(storage.get('amelia')).toEqual('earhart')
-      })
-    })
-  })
-
   describe('checklist state', () => {
     const storage = persistentStorage.checklistState
 

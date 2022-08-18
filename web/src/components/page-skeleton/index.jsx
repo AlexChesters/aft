@@ -54,6 +54,12 @@ const Skeleton = (props) => {
             >
               Help
             </Nav.Link>
+            <Nav.Link
+              className='navbar--item'
+              href={`${basePath}/settings`}
+            >
+              Settings
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

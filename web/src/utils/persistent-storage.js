@@ -1,9 +1,7 @@
-const SETTINGS_KEY = 'aft_PERSISTENT_SETTINGS'
 const CHECKLIST_STATE_KEY = 'aft_CHECKLIST_STATE'
 const AUTH_KEY = 'aft_AUTH'
 
 const categories = {
-  SETTINGS: SETTINGS_KEY,
   CHECKLIST_STATE: CHECKLIST_STATE_KEY,
   AUTH: AUTH_KEY
 }
@@ -34,7 +32,6 @@ const getStorage = (localStorageKey) => {
 }
 
 export default {
-  settings: getStorage(categories.SETTINGS),
   checklistState: getStorage(categories.CHECKLIST_STATE),
   auth: getStorage(categories.AUTH)
 }

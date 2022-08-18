@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import Form from 'react-bootstrap/Form'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
@@ -7,20 +6,13 @@ import persistentStorage from '../../utils/persistent-storage'
 
 import './index.scss'
 
-const Settings = (evt) => {
-  const [simBriefUsername, setSimBriefUsername] = useState(null)
+const Settings = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false)
 
-  const storage = persistentStorage.settings
-
-  useEffect(() => {
-    setSimBriefUsername(storage.get('SIMBRIEF_USERNAME'))
-  }, [])
-
-  const onSubmit = (evt) => {
+  const onChecklistProgressReset = (evt) => {
     evt.preventDefault()
 
-    storage.set('SIMBRIEF_USERNAME', simBriefUsername)
+    persistentStorage.checklistState.clear()
     setShowSuccessModal(true)
   }
 
@@ -34,7 +26,7 @@ const Settings = (evt) => {
           <Modal.Title>Success!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Your SimBrief username has been saved.</p>
+          <p>Your settings have been saved.</p>
         </Modal.Body>
       </Modal.Dialog>
     )
@@ -42,24 +34,8 @@ const Settings = (evt) => {
 
   return (
     <section className='settings--container'>
-      <Form onSubmit={onSubmit} className='home--form'>
-        <Form.Group>
-          <Form.Label className='home--form label label__title'>
-            SimBrief username
-          </Form.Label>
-          <Form.Control
-            as='input'
-            id='form-input-simbrief-username-identifier'
-            required
-            autoComplete='off'
-            defaultValue={simBriefUsername}
-            onChange={(e) => {
-              setSimBriefUsername(e.target.value)
-            }}
-          />
-        </Form.Group>
-        <Button className='button' type='submit'>Save</Button>
-      </Form>
+      <h1>Settings</h1>
+      <Button className='button' onClick={onChecklistProgressReset}>Reset progress of all checklists</Button>
     </section>
   )
 }

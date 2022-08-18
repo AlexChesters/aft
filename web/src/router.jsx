@@ -7,6 +7,7 @@ import ProtectedRoute from './protected-route'
 import AuthSuccess from './routes/auth/success'
 import Home from './routes/home'
 import Help from './routes/help'
+import Settings from './routes/settings'
 
 import Airports from './routes/apps/airports'
 import Checklists from './routes/apps/checklists'
@@ -19,6 +20,7 @@ export default function router () {
         <Route exact path='/auth/success' component={AuthSuccess} />
         <ProtectedRoute exact path='/' component={Home} />
         <ProtectedRoute exact path='/help' component={Help} />
+        <ProtectedRoute exact path='/settings' component={Settings} />
         <ProtectedRoute path='/airports' component={Airports} />
         <ProtectedRoute path='/checklists' component={Checklists} />
         <ProtectedRoute path='/calculators-converters-and-generators' component={CalculatorsConvertersAndGenerators} />
