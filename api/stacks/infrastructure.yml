@@ -329,9 +329,9 @@ Resources:
         - !Select
           - 1
           - Fn::GetAZs: !Ref "AWS::Region"
-      DesiredCapacity: 1
-      MaxSize: 1
-      MinSize: 0
+      DesiredCapacity: 2
+      MaxSize: 2
+      MinSize: 1
       MixedInstancesPolicy:
         InstancesDistribution:
           OnDemandPercentageAboveBaseCapacity: 50
