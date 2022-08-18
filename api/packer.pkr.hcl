@@ -18,6 +18,17 @@ build {
   sources = ["source.amazon-ebs.default"]
 
   provisioner "shell" {
+    inline = [
+      "mkdir /tmp/aft-api"
+    ]
+  }
+
+  provisioner "file" {
+    source = "./"
+    destination = "/tmp/aft-api"
+  }
+
+  provisioner "shell" {
     execute_command = "echo 'packer' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
     scripts = [
       "bake-scripts/001-create-user.sh",
