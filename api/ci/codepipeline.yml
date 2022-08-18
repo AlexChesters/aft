@@ -138,6 +138,7 @@ Resources:
                 - Name: GitHubSource
               RunOrder: 1
               Name: Build-AMI
+              Namespace: BuildVariables
               Configuration:
                 ProjectName: !Ref CodeBuildProject
         - Name: Deploy
@@ -160,5 +161,5 @@ Resources:
                 TemplateConfiguration: GitHubSource::api/stacks/parameters/infrastructure.json
                 ParameterOverrides: |
                   {
-                    "ImageVersion": "#{SourceVariables.CommitId}"
+                    "ImageId": "#{BuildVariables.IMAGE_ID}"
                   }
