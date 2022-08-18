@@ -4,9 +4,17 @@ source "amazon-ebs" "default" {
   force_deregister      = true
   instance_type         = "t4g.nano"
   region                = "eu-west-1"
-  source_ami            = "ami-0e7784444002a8053"
   ssh_username          = "ec2-user"
   subnet_id             = "subnet-0642944fa4b2f7f9b"
+  source_ami_filter {
+    filters = {
+      name                = "base-images--nodejs"
+      virtualization-type = "hvm"
+      root-device-type    = "ebs"
+    }
+    owners      = ["008356366354"]
+    most_recent = true
+  }
 
   tags = {
     Name = "AFT API"
@@ -24,7 +32,7 @@ build {
   }
 
   provisioner "file" {
-    source = "./"
+    source      = "./"
     destination = "/tmp/aft-api"
   }
 
