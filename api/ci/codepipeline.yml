@@ -5,55 +5,6 @@ Parameters:
     Description: the git branch to build
     Default: main
 Resources:
-  # BuildCodeBuildRole:
-  #   Type: AWS::IAM::Role
-  #   Properties:
-  #     AssumeRolePolicyDocument:
-  #       Version: "2012-10-17"
-  #       Statement:
-  #         - Action: sts:AssumeRole
-  #           Effect: Allow
-  #           Principal:
-  #             Service:
-  #               - codebuild.amazonaws.com
-  #     ManagedPolicyArns:
-  #       - !ImportValue core-infrastructure-global-codebuild-base-policy-arn
-  #     Policies:
-  #       - PolicyName: ecr-policy
-  #         PolicyDocument:
-  #           Statement:
-  #             - Effect: Allow
-  #               Action:
-  #                 - ecr:GetAuthorizationToken
-  #                 - ecr:BatchCheckLayerAvailability
-  #                 - ecr:GetDownloadUrlForLayer
-  #                 - ecr:BatchGetImage
-  #                 - ecr:PutImage
-  #                 - ecr:InitiateLayerUpload
-  #                 - ecr:UploadLayerPart
-  #                 - ecr:CompleteLayerUpload
-  #               Resource: "*"
-  # BuildCodeBuildProject:
-  #   Type: AWS::CodeBuild::Project
-  #   Properties:
-  #     Artifacts:
-  #       Type: CODEPIPELINE
-  #       Location: !ImportValue core-infrastructure-eu-west-1-build-artifacts-bucket
-  #       Path: /artifacts/aft-api-build/
-  #       Packaging: NONE
-  #       Name: build
-  #       NamespaceType: BUILD_ID
-  #     Environment:
-  #       ComputeType: BUILD_GENERAL1_SMALL
-  #       Image: aws/codebuild/standard:5.0
-  #       PrivilegedMode: true
-  #       Type: LINUX_CONTAINER
-  #     ServiceRole: !Ref BuildCodeBuildRole
-  #     Source:
-  #       Type: CODEPIPELINE
-  #       BuildSpec: api/buildspec.yml
-  #     Name: aft-api-build
-  #     TimeoutInMinutes: 10
   CodeBuildRole:
     Type: AWS::IAM::Role
     Properties:
@@ -118,17 +69,6 @@ Resources:
                 OutputArtifactFormat: CODE_ZIP
         - Name: Pre-Deploy
           Actions:
-            # - ActionTypeId:
-            #     Category: Build
-            #     Owner: AWS
-            #     Version: "1"
-            #     Provider: CodeBuild
-            #   InputArtifacts:
-            #     - Name: GitHubSource
-            #   RunOrder: 1
-            #   Name: Build-Image
-            #   Configuration:
-            #     ProjectName: !Ref BuildCodeBuildProject
             - ActionTypeId:
                 Category: Build
                 Owner: AWS
