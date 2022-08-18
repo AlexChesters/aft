@@ -450,7 +450,7 @@ Resources:
           Values:
             - "/aft-ec2/*"
       ListenerArn: !ImportValue api-edge-infrastructure-listener-arn
-      Priority: 2
+      Priority: 4
   ContainerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
