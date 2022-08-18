@@ -1,5 +1,9 @@
 Description: Infrastructure for aft-api
 Parameters:
+  ImageId:
+    Description: ID of the AMI to launch
+    Type: AWS::EC2::Image::Id
+    Default: ami-0e7784444002a8053
   ImageVersion:
     Description: The version of the ECR image to deployment
     Type: String
@@ -345,6 +349,108 @@ Resources:
                   - ssm:GetParameter
                 Resource:
                   - arn:aws:ssm:eu-west-1:008356366354:parameter/aft-avwx-secret
+  IAMInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref IAMRole
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: security group for router
+      SecurityGroupEgress:
+        - IpProtocol: "-1"
+          ToPort: -1
+          FromPort: -1
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          ToPort: 80
+          FromPort: 80
+          SourceSecurityGroupId: !ImportValue api-edge-infrastructure-security-group-id
+        - IpProtocol: tcp
+          ToPort: 22
+          FromPort: 22
+          CidrIp: 0.0.0.0/0
+      VpcId: !ImportValue core-infrastructure-eu-west-1-vpc-id
+  LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        IamInstanceProfile:
+          Arn: !GetAtt IAMInstanceProfile.Arn
+        ImageId: !Ref ImageId
+        KeyName: personal
+        SecurityGroupIds:
+          - !Ref InstanceSecurityGroup
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    UpdatePolicy:
+      AutoScalingRollingUpdate:
+        PauseTime: PT15S
+        MaxBatchSize: 1
+        MinInstancesInService: 0
+    Properties:
+      AvailabilityZones:
+        - !Select
+          - 0
+          - Fn::GetAZs: !Ref "AWS::Region"
+        - !Select
+          - 1
+          - Fn::GetAZs: !Ref "AWS::Region"
+      DesiredCapacity: "1"
+      MaxSize: "1"
+      MinSize: "0"
+      MixedInstancesPolicy:
+        InstancesDistribution:
+          OnDemandPercentageAboveBaseCapacity: 50
+          SpotAllocationStrategy: capacity-optimized
+        LaunchTemplate:
+          LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref LaunchTemplate
+            Version: !GetAtt LaunchTemplate.LatestVersionNumber
+          Overrides:
+            - InstanceType: t4g.nano
+      Tags:
+        - Key: Name
+          Value: AFT API
+          PropagateAtLaunch: true
+      HealthCheckGracePeriod: 10
+      HealthCheckType: EC2
+      TargetGroupARNs:
+        - !Ref InstanceTargetGroup
+      VPCZoneIdentifier:
+        - !ImportValue core-infrastructure-eu-west-1-public-subnet-one-id
+        - !ImportValue core-infrastructure-eu-west-1-public-subnet-two-id
+  InstanceTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: 15
+      HealthCheckPath: /aft/status
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 3
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 3
+      Matcher:
+        HttpCode: "200"
+      Port: 80
+      Protocol: HTTP
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: "5"
+      VpcId: !ImportValue core-infrastructure-eu-west-1-vpc-id
+  InstanceListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      Actions:
+        - TargetGroupArn: !Ref TargetGroup
+          Type: forward
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - "/aft-ec2/*"
+      ListenerArn: !ImportValue api-edge-infrastructure-listener-arn
+      Priority: 2
   ContainerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
