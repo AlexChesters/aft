@@ -20,7 +20,8 @@ build {
   provisioner "shell" {
     execute_command = "echo 'packer' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
     scripts = [
-      "bake-scripts/001-create-user.sh"
+      "bake-scripts/001-create-user.sh",
+      "bake-scripts/002-build-app.sh"
     ]
   }
 }
