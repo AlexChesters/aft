@@ -37,7 +37,7 @@ Resources:
       ServiceRole: !Ref CodeBuildRole
       Source:
         Type: CODEPIPELINE
-        BuildSpec: api/buildspec.ami.yml
+        BuildSpec: api/buildspec.yml
       Name: aft-api-build-ami
       TimeoutInMinutes: 10
   CodePipeline:
