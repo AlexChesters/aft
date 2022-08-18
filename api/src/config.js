@@ -36,5 +36,5 @@ module.exports = {
     }
   },
   environment: isDevelopmentEnvironment ? 'DEV' : 'PROD',
-  port: isDevelopmentEnvironment ? 8080 : 80
+  port: 8080
 }
