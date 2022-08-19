@@ -280,7 +280,7 @@ Resources:
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: security group for router
+      GroupDescription: security group for aft
       SecurityGroupEgress:
         - IpProtocol: "-1"
           ToPort: -1
