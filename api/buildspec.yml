@@ -7,7 +7,7 @@ env:
 phases:
   install:
     runtime-versions:
-      nodejs: 16
+      nodejs: 14
   build:
     commands:
       - cd api
