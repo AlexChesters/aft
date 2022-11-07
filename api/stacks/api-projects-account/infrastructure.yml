@@ -291,6 +291,14 @@ Resources:
           ToPort: 80
           FromPort: 80
           SourceSecurityGroupId: !ImportValue api-edge-infrastructure-security-group-id
+        - IpProtocol: tcp
+          ToPort: 22
+          FromPort: 22
+          CidrIp: !ImportValue core-infrastructure-eu-west-1-public-subnet-one-range
+        - IpProtocol: tcp
+          ToPort: 22
+          FromPort: 22
+          CidrIp: !ImportValue core-infrastructure-eu-west-1-public-subnet-two-range
       VpcId: !ImportValue vpc-id
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
