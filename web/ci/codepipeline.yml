@@ -1,0 +1,183 @@
+Description: Pipeline for aft web
+Parameters:
+  BuildArtifactsBucketEUWest1Name:
+    Type: String
+    Description: S3 Bucket name where build artifacts are stored in eu-west-1
+    Default: alex-chesters-build-artifacts-874292001393-eu-west-1
+  TestBucketName:
+    Description: Name of the S3 bucket for the test environment
+    Type: String
+    Default: projects-test-bucket-bucket-1cibdsx4700ut
+  LiveBucketName:
+    Description: Name of the S3 bucket for the live environment
+    Type: String
+    Default: projects-live-bucket-bucket-x5u4945s2wzh
+Resources:
+  TestStaticContentCodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+      ManagedPolicyArns:
+        - !ImportValue ci-infrastructure-codebuild-base-policy
+      Policies:
+        - PolicyName: test-aft-codebuild-s3-policy
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                  - s3:DeleteObject
+                Effect: Allow
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:s3:::${TestBucketName}/*"
+              - Action:
+                  - s3:ListBucket
+                Effect: Allow
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:s3:::${TestBucketName}"
+  TestStaticContentCodeBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Artifacts:
+        Type: CODEPIPELINE
+        Location: !Ref BuildArtifactsBucketEUWest1Name
+        Path: /artifacts/test-aft/
+        Packaging: NONE
+        Name: build
+        NamespaceType: BUILD_ID
+      TimeoutInMinutes: 5
+      Description: Builds and deploys the static content for aft test
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:5.0
+        Type: LINUX_CONTAINER
+        EnvironmentVariables:
+          - Name: BUCKET
+            Value: !Ref TestBucketName
+            Type: PLAINTEXT
+          - Name: ENVIRONMENT
+            Value: test
+            Type: PLAINTEXT
+          - Name: CACHE_MAX_AGE
+            Value: "600"
+            Type: PLAINTEXT
+      Name: aft-build-and-deploy-static-content-test
+      ServiceRole: !GetAtt TestStaticContentCodeBuildRole.Arn
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: web/buildspec.yml
+  LiveStaticContentCodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+      ManagedPolicyArns:
+        - !ImportValue ci-infrastructure-codebuild-base-policy
+      Policies:
+        - PolicyName: live-aft-codebuild-policy
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                  - s3:DeleteObject
+                Effect: Allow
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:s3:::${LiveBucketName}/*"
+              - Action:
+                  - s3:ListBucket
+                Effect: Allow
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:s3:::${LiveBucketName}"
+  LiveStaticContentCodeBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Artifacts:
+        Type: CODEPIPELINE
+        Location: !Ref BuildArtifactsBucketEUWest1Name
+        Path: /artifacts/live-aft-static-content/
+        Packaging: NONE
+        Name: build
+        NamespaceType: BUILD_ID
+      TimeoutInMinutes: 5
+      Description: Builds and deploys the static content for aft
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:5.0
+        Type: LINUX_CONTAINER
+        EnvironmentVariables:
+          - Name: BUCKET
+            Value: !Ref LiveBucketName
+            Type: PLAINTEXT
+          - Name: ENVIRONMENT
+            Value: live
+            Type: PLAINTEXT
+          - Name: CACHE_MAX_AGE
+            Value: "3600"
+            Type: PLAINTEXT
+      Name: projects-build-and-deploy-static-content-live
+      ServiceRole: !GetAtt LiveStaticContentCodeBuildRole.Arn
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: web/buildspec.yml
+  CodePipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      ArtifactStore:
+        Type: S3
+        Location: !ImportValue ci-infrastructure-build-artifacts-bucket-name
+      Name: aft-web
+      RestartExecutionOnUpdate: true
+      RoleArn: !ImportValue ci-infrastructure-codepipeline-base-execution-role
+      Stages:
+        - Name: Source
+          Actions:
+            - ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Version: "1"
+                Provider: CodeStarSourceConnection
+              OutputArtifacts:
+                - Name: GitHubSource
+              RunOrder: 1
+              Name: Clone-From-GitHub
+              Configuration:
+                ConnectionArn: !ImportValue ci-infrastructure-codestar-connection
+                FullRepositoryId: AlexChesters/aft
+                BranchName: new-account
+                OutputArtifactFormat: CODE_ZIP
+        - Name: Deploy-To-Test
+          Actions:
+            - ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Version: "1"
+                Provider: CodeBuild
+              InputArtifacts:
+                - Name: GitHubSource
+              RunOrder: 1
+              Name: Build-And-Deploy-Static-Content
+              Configuration:
+                ProjectName: !Ref TestStaticContentCodeBuildProject
+        - Name: Deploy-To-Live
+          Actions:
+            - ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Version: "1"
+                Provider: CodeBuild
+              InputArtifacts:
+                - Name: GitHubSource
+              RunOrder: 1
+              Name: Build-And-Deploy-Static-Content
+              Configuration:
+                ProjectName: !Ref LiveStaticContentCodeBuildProject
