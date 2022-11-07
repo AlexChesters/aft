@@ -294,11 +294,11 @@ Resources:
         - IpProtocol: tcp
           ToPort: 22
           FromPort: 22
-          CidrIp: !ImportValue core-infrastructure-eu-west-1-public-subnet-one-range
+          CidrIp: !ImportValue public-subnet-one-cidr-range
         - IpProtocol: tcp
           ToPort: 22
           FromPort: 22
-          CidrIp: !ImportValue core-infrastructure-eu-west-1-public-subnet-two-range
+          CidrIp: !ImportValue public-subnet-two-cidr-range
       VpcId: !ImportValue vpc-id
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
