@@ -8,10 +8,10 @@ if [[ -z "$SECRET_VALUE" ]]; then
   exit 1
 fi
 
-AWS_PROFILE=personal \
-  aws ssm put-parameter \
+aws ssm put-parameter \
   --name aft-avwx-secret \
   --value "$1" \
   --type SecureString \
   --overwrite \
-  --region eu-west-1
+  --region eu-west-1 \
+  --profile api-projects
