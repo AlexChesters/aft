@@ -9,15 +9,15 @@ module.exports = {
     : 'aft-live-table',
   cognito: {
     userPoolId: isDevelopmentEnvironment
-      ? 'eu-west-1_J73UIaGgA'
-      : 'eu-west-1_JtBnXlkNb',
+      ? 'eu-west-1_OECQQsg5K'
+      : 'eu-west-1_4504R6kvy',
     domain: isDevelopmentEnvironment
-      ? 'https://dev-aft.auth.eu-west-1.amazoncognito.com'
-      : 'https://aft.auth.eu-west-1.amazoncognito.com',
+      ? 'https://dev-aft-auth.auth.eu-west-1.amazoncognito.com'
+      : 'https://aft-auth.auth.eu-west-1.amazoncognito.com',
     ios: {
       clientId: isDevelopmentEnvironment
-        ? '1gmnp8tt6jtg9s3k8plopfnkt5'
-        : '7i2fmh23s0j3u5nrb29v1qp9qd',
+        ? '2gqa0hdm4mjn577bvfpu9dbu7e'
+        : '1etbhkf6c1o9o81f4c2tgs5cks',
       redirectUri: isDevelopmentEnvironment
         ? 'http://localhost:8080/auth/callback/ios'
         : 'https://edge.alexchesters.com/aft/auth/callback/ios',
@@ -25,8 +25,8 @@ module.exports = {
     },
     web: {
       clientId: isDevelopmentEnvironment
-        ? '6l4rtjsnsuf5sg1ejth9r8lsh3'
-        : '587nslla7ek69ap9qk6allch38',
+        ? '2jhdvpoonssab68ep43f0bjec6'
+        : '6eptqopvr36i0ujq0o2i9bbrqg',
       redirectUri: isDevelopmentEnvironment
         ? 'http://localhost:8080/auth/callback/web'
         : 'https://edge.alexchesters.com/aft/auth/callback/web',
