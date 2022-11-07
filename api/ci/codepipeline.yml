@@ -3,7 +3,7 @@ Parameters:
   Branch:
     Type: String
     Description: the git branch to build
-    Default: new-account
+    Default: main
 Resources:
   CodeBuildRole:
     Type: AWS::IAM::Role
