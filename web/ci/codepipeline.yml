@@ -124,7 +124,7 @@ Resources:
           - Name: CACHE_MAX_AGE
             Value: "3600"
             Type: PLAINTEXT
-      Name: projects-build-and-deploy-static-content-live
+      Name: aft-build-and-deploy-static-content-live
       ServiceRole: !GetAtt LiveStaticContentCodeBuildRole.Arn
       Source:
         Type: CODEPIPELINE

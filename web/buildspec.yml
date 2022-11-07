@@ -6,7 +6,7 @@ phases:
       nodejs: 14
   build:
     commands:
-      - cd static
+      - cd web
       - npm ci
       - npm t
       - npm run build:prod
