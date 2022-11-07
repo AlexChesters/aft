@@ -10,7 +10,7 @@ phases:
       - npm ci
       - npm t
       - npm run build:prod
-      - aws s3 sync build s3://$BUCKET --cache-control max-age=$CACHE_MAX_AGE --delete
+      - aws s3 sync build s3://$BUCKET/aft --cache-control max-age=$CACHE_MAX_AGE --delete
 artifacts:
   files:
     - "**/*"
