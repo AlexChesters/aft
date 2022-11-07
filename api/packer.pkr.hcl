@@ -5,21 +5,21 @@ source "amazon-ebs" "default" {
   instance_type         = "t4g.nano"
   region                = "eu-west-1"
   ssh_username          = "ec2-user"
-  subnet_id             = "subnet-0642944fa4b2f7f9b"
+  subnet_id             = "subnet-01001afad61ae5506"
   source_ami_filter {
     filters = {
       name                = "base-images--nodejs"
       virtualization-type = "hvm"
       root-device-type    = "ebs"
     }
-    owners      = ["008356366354"]
+    owners      = ["748997477946"]
     most_recent = true
   }
 
   tags = {
     Name = "AFT API"
   }
-  vpc_id = "vpc-074a894841ed93bdb"
+  vpc_id = "vpc-02ac7aee4d2125c4f"
 }
 
 build {

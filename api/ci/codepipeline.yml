@@ -17,14 +17,54 @@ Resources:
               Service:
                 - codebuild.amazonaws.com
       ManagedPolicyArns:
-        - !ImportValue core-infrastructure-global-codebuild-base-policy-arn
-        - !ImportValue core-infrastructure-global-packer-policy-arn
+        - !ImportValue ci-infrastructure-codebuild-base-policy
+      Policies:
+        - PolicyName: base-images-policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ec2:AttachVolume
+                  - ec2:AuthorizeSecurityGroupIngress
+                  - ec2:CopyImage
+                  - ec2:CreateImage
+                  - ec2:CreateKeypair
+                  - ec2:CreateSecurityGroup
+                  - ec2:CreateSnapshot
+                  - ec2:CreateTags
+                  - ec2:CreateVolume
+                  - ec2:DeleteKeyPair
+                  - ec2:DeleteSecurityGroup
+                  - ec2:DeleteSnapshot
+                  - ec2:DeleteVolume
+                  - ec2:DeregisterImage
+                  - ec2:DescribeImageAttribute
+                  - ec2:DescribeImages
+                  - ec2:DescribeInstances
+                  - ec2:DescribeRegions
+                  - ec2:DescribeSecurityGroups
+                  - ec2:DescribeSnapshots
+                  - ec2:DescribeSubnets
+                  - ec2:DescribeTags
+                  - ec2:DescribeVolumes
+                  - ec2:DetachVolume
+                  - ec2:GetPasswordData
+                  - ec2:ModifyImageAttribute
+                  - ec2:ModifyInstanceAttribute
+                  - ec2:ModifySnapshotAttribute
+                  - ec2:RegisterImage
+                  - ec2:RunInstances
+                  - ec2:StopInstances
+                  - ec2:TerminateInstances
+                Resource:
+                  - "*"
   CodeBuildProject:
     Type: AWS::CodeBuild::Project
     Properties:
       Artifacts:
         Type: CODEPIPELINE
-        Location: !ImportValue core-infrastructure-eu-west-1-build-artifacts-bucket
+        Location: !ImportValue ci-infrastructure-build-artifacts-bucket-name
         Path: /artifacts/aft-api-build/
         Packaging: NONE
         Name: build
@@ -45,10 +85,10 @@ Resources:
     Properties:
       ArtifactStore:
         Type: S3
-        Location: !ImportValue core-infrastructure-eu-west-1-build-artifacts-bucket
+        Location: !ImportValue ci-infrastructure-build-artifacts-bucket-name
       Name: aft-api
       RestartExecutionOnUpdate: true
-      RoleArn: !ImportValue core-infrastructure-global-codepipeline-base-role-arn
+      RoleArn: !ImportValue ci-infrastructure-codepipeline-base-execution-role
       Stages:
         - Name: Source
           Actions:
@@ -63,7 +103,7 @@ Resources:
               Name: Clone-From-GitHub
               Namespace: SourceVariables
               Configuration:
-                ConnectionArn: !ImportValue core-infrastructure-eu-west-1-codestar-github-connection-arn
+                ConnectionArn: !ImportValue ci-infrastructure-codestar-connection
                 FullRepositoryId: AlexChesters/aft
                 BranchName: !Ref Branch
                 OutputArtifactFormat: CODE_ZIP
@@ -96,9 +136,9 @@ Resources:
                 ActionMode: CREATE_UPDATE
                 Capabilities: CAPABILITY_NAMED_IAM
                 StackName: aft-api
-                RoleArn: !ImportValue core-infrastructure-global-codepipeline-cloudformation-role-arn
-                TemplatePath: GitHubSource::api/stacks/infrastructure.yml
-                TemplateConfiguration: GitHubSource::api/stacks/parameters/infrastructure.json
+                RoleArn: ci-infrastructure-codepipeline-base-cloudformation-role
+                TemplatePath: GitHubSource::api/stacks/api-projects-account/infrastructure.yml
+                TemplateConfiguration: GitHubSource::api/stacks/api-projects-account/parameters/infrastructure.json
                 ParameterOverrides: |
                   {
                     "ImageId": "#{BuildVariables.IMAGE_ID}"

@@ -3,7 +3,7 @@ Parameters:
   ImageId:
     Description: ID of the AMI to launch
     Type: AWS::EC2::Image::Id
-    Default: ami-0e7784444002a8053
+    Default: ami-037ac169954621436
 Resources:
   TestUserPool:
     Type: AWS::Cognito::UserPool
@@ -29,7 +29,7 @@ Resources:
   TestUserPoolDomain:
     Type: AWS::Cognito::UserPoolDomain
     Properties:
-      Domain: dev-aft
+      Domain: dev-aft-auth
       UserPoolId: !Ref TestUserPool
   TestiOSClient:
     Type: AWS::Cognito::UserPoolClient
@@ -99,7 +99,7 @@ Resources:
   LiveUserPoolDomain:
     Type: AWS::Cognito::UserPoolDomain
     Properties:
-      Domain: aft
+      Domain: aft-auth
       UserPoolId: !Ref LiveUserPool
   LiveiOSClient:
     Type: AWS::Cognito::UserPoolClient
@@ -263,7 +263,7 @@ Resources:
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                 Resource:
-                  - !Sub "arn:aws:logs:eu-west-1:008356366354:log-group:${LogGroup}/*"
+                  - !Sub "arn:${AWS::Partition}:logs:eu-west-1:008356366354:log-group:${LogGroup}/*"
         - PolicyName: ssm-policy
           PolicyDocument:
             Statement:
@@ -291,15 +291,7 @@ Resources:
           ToPort: 80
           FromPort: 80
           SourceSecurityGroupId: !ImportValue api-edge-infrastructure-security-group-id
-        - IpProtocol: tcp
-          ToPort: 22
-          FromPort: 22
-          CidrIp: !ImportValue core-infrastructure-eu-west-1-public-subnet-one-range
-        - IpProtocol: tcp
-          ToPort: 22
-          FromPort: 22
-          CidrIp: !ImportValue core-infrastructure-eu-west-1-public-subnet-two-range
-      VpcId: !ImportValue core-infrastructure-eu-west-1-vpc-id
+      VpcId: !ImportValue vpc-id
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
     Properties:
@@ -307,7 +299,6 @@ Resources:
         IamInstanceProfile:
           Arn: !GetAtt IAMInstanceProfile.Arn
         ImageId: !Ref ImageId
-        KeyName: personal
         SecurityGroupIds:
           - !Ref InstanceSecurityGroup
   AutoScalingGroup:
@@ -348,8 +339,8 @@ Resources:
       TargetGroupARNs:
         - !Ref TargetGroup
       VPCZoneIdentifier:
-        - !ImportValue core-infrastructure-eu-west-1-private-subnet-one-id
-        - !ImportValue core-infrastructure-eu-west-1-private-subnet-two-id
+        - !ImportValue private-subnet-one-id
+        - !ImportValue private-subnet-two-id
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
@@ -366,7 +357,7 @@ Resources:
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
           Value: "5"
-      VpcId: !ImportValue core-infrastructure-eu-west-1-vpc-id
+      VpcId: !ImportValue vpc-id
   ListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
     Properties:
@@ -383,7 +374,7 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Properties:
       AlarmActions:
-        - !ImportValue core-infrastructure-eu-west-1-alarm-topic-arn
+        - !ImportValue notification-topic
       ComparisonOperator: GreaterThanOrEqualToThreshold
       EvaluationPeriods: 1
       TreatMissingData: notBreaching
