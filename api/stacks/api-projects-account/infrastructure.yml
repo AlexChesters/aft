@@ -299,6 +299,7 @@ Resources:
         IamInstanceProfile:
           Arn: !GetAtt IAMInstanceProfile.Arn
         ImageId: !Ref ImageId
+        KeyName: personal
         SecurityGroupIds:
           - !Ref InstanceSecurityGroup
   AutoScalingGroup:
