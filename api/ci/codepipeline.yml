@@ -136,7 +136,7 @@ Resources:
                 ActionMode: CREATE_UPDATE
                 Capabilities: CAPABILITY_NAMED_IAM
                 StackName: aft-api
-                RoleArn: ci-infrastructure-codepipeline-base-cloudformation-role
+                RoleArn: !ImportValue ci-infrastructure-codepipeline-base-cloudformation-role
                 TemplatePath: GitHubSource::api/stacks/api-projects-account/infrastructure.yml
                 TemplateConfiguration: GitHubSource::api/stacks/api-projects-account/parameters/infrastructure.json
                 ParameterOverrides: |
