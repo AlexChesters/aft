@@ -263,7 +263,7 @@ Resources:
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                 Resource:
-                  - !Sub "arn:${AWS::Partition}:logs:eu-west-1:008356366354:log-group:${LogGroup}/*"
+                  - !Sub "arn:${AWS::Partition}:logs:eu-west-1:561049784655:log-group:${LogGroup}/*"
         - PolicyName: ssm-policy
           PolicyDocument:
             Statement:
@@ -271,7 +271,7 @@ Resources:
                 Action:
                   - ssm:GetParameter
                 Resource:
-                  - arn:aws:ssm:eu-west-1:008356366354:parameter/aft-avwx-secret
+                  - arn:aws:ssm:eu-west-1:561049784655:parameter/aft-avwx-secret
   IAMInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
