@@ -7,8 +7,8 @@ Parameters:
 Resources:
   TestUserPool:
     Type: AWS::Cognito::UserPool
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
+    # DeletionPolicy: Retain
+    # UpdateReplacePolicy: Retain
     Properties:
       MfaConfiguration: "OFF"
       Policies:
@@ -77,8 +77,8 @@ Resources:
       UserPoolId: !Ref TestUserPool
   LiveUserPool:
     Type: AWS::Cognito::UserPool
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
+    # DeletionPolicy: Retain
+    # UpdateReplacePolicy: Retain
     Properties:
       MfaConfiguration: "OFF"
       Policies:
@@ -145,8 +145,8 @@ Resources:
       UserPoolId: !Ref LiveUserPool
   TestChecklistTable:
     Type: AWS::DynamoDB::Table
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
+    # DeletionPolicy: Retain
+    # UpdateReplacePolicy: Retain
     Properties:
       AttributeDefinitions:
         - AttributeName: UserIdentifier
@@ -162,8 +162,8 @@ Resources:
       TableName: aft-test-table
   ChecklistTable:
     Type: AWS::DynamoDB::Table
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
+    # DeletionPolicy: Retain
+    # UpdateReplacePolicy: Retain
     Properties:
       AttributeDefinitions:
         - AttributeName: UserIdentifier
@@ -179,8 +179,8 @@ Resources:
       TableName: aft-live-table
   TestSessionTable:
     Type: AWS::DynamoDB::Table
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
+    # DeletionPolicy: Retain
+    # UpdateReplacePolicy: Retain
     Properties:
       AttributeDefinitions:
         - AttributeName: Identifier
@@ -197,8 +197,8 @@ Resources:
         Enabled: true
   SessionTable:
     Type: AWS::DynamoDB::Table
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
+    # DeletionPolicy: Retain
+    # UpdateReplacePolicy: Retain
     Properties:
       AttributeDefinitions:
         - AttributeName: Identifier
@@ -215,8 +215,8 @@ Resources:
         Enabled: true
   LogGroup:
     Type: AWS::Logs::LogGroup
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
+    # DeletionPolicy: Retain
+    # UpdateReplacePolicy: Retain
     Properties:
       LogGroupName: aft-live-logs
       RetentionInDays: 7
