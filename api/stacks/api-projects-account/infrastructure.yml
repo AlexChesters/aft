@@ -263,7 +263,7 @@ Resources:
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                 Resource:
-                  - !Sub "arn:${AWS::Partition}:logs:eu-west-1:561049784655:log-group:${LogGroup}/*"
+                  - !Sub "arn:${AWS::Partition}:logs:eu-west-1:561049784655:log-group:${LogGroup}:*"
               - Effect: Allow
                 Action:
                   - cloudwatch:PutMetricData
