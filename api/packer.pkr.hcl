@@ -7,6 +7,7 @@ source "amazon-ebs" "default" {
   ssh_username            = "ec2-user"
   subnet_id               = "subnet-01001afad61ae5506"
   temporary_key_pair_type = "ed25519"
+
   source_ami_filter {
     filters = {
       name                = "base-images--nodejs"
