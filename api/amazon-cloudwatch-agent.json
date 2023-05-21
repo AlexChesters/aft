@@ -56,19 +56,19 @@
           {
             "file_path": "/var/log/aft-api/*.log",
             "auto_removal": true,
-            "log_group_name": "aft-api-live-logs",
+            "log_group_name": "aft-live-logs",
             "log_stream_name": "{instance_id}-app-logs"
           },
           {
             "file_path": "/var/log/nginx/access.log",
             "auto_removal": true,
-            "log_group_name": "aft-api-live-logs",
+            "log_group_name": "aft-live-logs",
             "log_stream_name": "{instance_id}-nginx-access-logs"
           },
           {
             "file_path": "/var/log/nginx/access.log",
             "auto_removal": true,
-            "log_group_name": "aft-api-live-logs",
+            "log_group_name": "aft-live-logs",
             "log_stream_name": "{instance_id}-nginx-access-logs"
           }
         ]
