@@ -18,4 +18,4 @@ script is used to generate the airport data (uses the CSV files from
 Monitoring is done using [Grafana](https://edge.alexchesters.com/grafana/d/OxXXMitVz/api).
 
 ## Accessing the running server
-`ssh -A -i ~/Desktop/key-pairs/personal.pem -J nat ec2-user@<AFT_EC2_IP_ADDRESS>`
+`sh scripts/ssh.sh`
