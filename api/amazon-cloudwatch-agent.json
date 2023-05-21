@@ -1,0 +1,78 @@
+{
+  "agent": {
+    "metrics_collection_interval": 60,
+    "region": "eu-west-1",
+    "omit_hostname": true
+  },
+  "metrics": {
+    "namespace": "aft/api/live",
+    "metrics_collected": {
+      "mem": {
+        "measurement": [
+          "used",
+          "used_percent"
+        ],
+        "metrics_collection_interval": 60
+      },
+      "cpu": {
+        "measurement": [
+          {
+            "name": "usage_idle",
+            "unit": "Percent"
+          }
+        ],
+        "metrics_collection_interval": 60
+      },
+      "disk": {
+        "measurement": [
+          "used",
+          "used_percent"
+        ],
+        "metrics_collection_interval": 60
+      },
+      "diskio": {
+        "measurement": [
+          "reads",
+          "writes"
+        ],
+        "metrics_collection_interval": 60
+      },
+      "net": {
+        "measurement": [
+          "err_in",
+          "err_out",
+          "drop_in",
+          "drop_out",
+          "recv",
+          "sent"
+        ]
+      }
+    }
+  },
+  "logs": {
+    "logs_collected": {
+      "files": {
+        "collect_list": [
+          {
+            "file_path": "/var/log/aft-api/*.log",
+            "auto_removal": true,
+            "log_group_name": "aft-api-live-logs",
+            "log_stream_name": "{instance_id}-app-logs"
+          },
+          {
+            "file_path": "/var/log/nginx/access.log",
+            "auto_removal": true,
+            "log_group_name": "aft-api-live-logs",
+            "log_stream_name": "{instance_id}-nginx-access-logs"
+          },
+          {
+            "file_path": "/var/log/nginx/access.log",
+            "auto_removal": true,
+            "log_group_name": "aft-api-live-logs",
+            "log_stream_name": "{instance_id}-nginx-access-logs"
+          }
+        ]
+      }
+    }
+  }
+}

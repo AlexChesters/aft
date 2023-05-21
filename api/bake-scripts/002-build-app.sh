@@ -4,6 +4,10 @@ pushd /tmp/aft-api
 
 npm ci --only=prod
 
+mv \
+  amazon-cloudwatch-agent.json \
+  /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+
 popd
 
 mv /tmp/aft-api /usr/lib/aft-api
