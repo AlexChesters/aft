@@ -14,15 +14,8 @@ a Parameter Store entry with a token used to authenticate requests to AVWX
 script is used to generate the airport data (uses the CSV files from
 [Our Airports](https://ourairports.com/data/))
 
-## Load tests
-Load testing is performed after every deployment using
-[`loadtest`](https://www.npmjs.com/package/loadtest); the load test script can
-be found in the [`load-test/`](load-test/index.js) directory.
-
 ## Monitoring
-There exists a CloudWatch dashboard which can be used to monitor the service;
-the dashboard is defined in the main
-[CloudFormation stack](stacks/infrastructure.yml).
+Monitoring is done using [Grafana](https://edge.alexchesters.com/grafana/d/OxXXMitVz/api).
 
 ## Accessing the running server
 `ssh -A -i ~/Desktop/key-pairs/personal.pem -J nat ec2-user@<AFT_EC2_IP_ADDRESS>`
