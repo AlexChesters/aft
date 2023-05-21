@@ -41,8 +41,28 @@ build {
   }
 
   provisioner "file" {
-    source      = "./"
-    destination = "/tmp/aft-api"
+    source      = "./src"
+    destination = "/tmp/aft-api/src"
+  }
+
+  provisioner "file" {
+    source      = "./services"
+    destination = "/tmp/aft-api/services"
+  }
+
+  provisioner "file" {
+    source      = "./package.json"
+    destination = "/tmp/aft-api/package.json"
+  }
+
+  provisioner "file" {
+    source      = "./package-lock.json"
+    destination = "/tmp/aft-api/package-lock.json"
+  }
+
+  provisioner "file" {
+    source      = "./amazon-cloudwatch-agent.json"
+    destination = "/tmp/aft-api/amazon-cloudwatch-agent.json"
   }
 
   provisioner "shell" {

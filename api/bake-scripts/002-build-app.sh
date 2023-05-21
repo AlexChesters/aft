@@ -2,7 +2,9 @@ set -e
 
 pushd /tmp/aft-api
 
-npm ci --omit=dev
+ls -al
+
+npm ci --omit=dev --no-audit
 
 mv \
   amazon-cloudwatch-agent.json \

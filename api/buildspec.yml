@@ -17,6 +17,5 @@ phases:
       - export PATH="$PATH:/usr/local/packer"
       - npm ci
       - npm t
-      - rm -rf node_modules
       - packer build packer.pkr.hcl
       - IMAGE_ID=$(aws ec2 describe-images --filters "Name=owner-id,Values=561049784655" --filters "Name=name,Values=aft-api" --region eu-west-1 | jq -r .Images[0].ImageId)
