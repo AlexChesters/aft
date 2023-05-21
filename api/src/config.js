@@ -36,5 +36,6 @@ module.exports = {
     }
   },
   environment: isDevelopmentEnvironment ? 'DEV' : 'PROD',
-  port: 8080
+  port: 8080,
+  logFilePath: isDevelopmentEnvironment ? 'aft.log' : '/var/log/aft-api/aft.log'
 }
