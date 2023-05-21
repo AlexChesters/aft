@@ -23,3 +23,6 @@ be found in the [`load-test/`](load-test/index.js) directory.
 There exists a CloudWatch dashboard which can be used to monitor the service;
 the dashboard is defined in the main
 [CloudFormation stack](stacks/infrastructure.yml).
+
+## Accessing the running server
+`ssh -A -i ~/Desktop/key-pairs/personal.pem -J nat ec2-user@<AFT_EC2_IP_ADDRESS>`
