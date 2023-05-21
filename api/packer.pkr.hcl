@@ -1,11 +1,12 @@
 source "amazon-ebs" "default" {
-  ami_name              = "aft-api"
-  force_delete_snapshot = true
-  force_deregister      = true
-  instance_type         = "t4g.nano"
-  region                = "eu-west-1"
-  ssh_username          = "ec2-user"
-  subnet_id             = "subnet-01001afad61ae5506"
+  ami_name                = "aft-api"
+  force_delete_snapshot   = true
+  force_deregister        = true
+  instance_type           = "t4g.nano"
+  region                  = "eu-west-1"
+  ssh_username            = "ec2-user"
+  subnet_id               = "subnet-01001afad61ae5506"
+  temporary_key_pair_type = "ed25519"
   source_ami_filter {
     filters = {
       name                = "base-images--nodejs"
