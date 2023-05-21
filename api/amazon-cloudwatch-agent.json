@@ -16,10 +16,7 @@
       },
       "cpu": {
         "measurement": [
-          {
-            "name": "usage_idle",
-            "unit": "Percent"
-          }
+          "usage_idle"
         ],
         "metrics_collection_interval": 60
       },
@@ -29,23 +26,6 @@
           "used_percent"
         ],
         "metrics_collection_interval": 60
-      },
-      "diskio": {
-        "measurement": [
-          "reads",
-          "writes"
-        ],
-        "metrics_collection_interval": 60
-      },
-      "net": {
-        "measurement": [
-          "err_in",
-          "err_out",
-          "drop_in",
-          "drop_out",
-          "packets_recv",
-          "packets_sent"
-        ]
       }
     }
   },
