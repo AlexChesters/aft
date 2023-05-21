@@ -2,8 +2,6 @@ set -e
 
 pushd /tmp/aft-api
 
-ls -al
-
 npm ci --omit=dev --no-audit
 
 mv \
