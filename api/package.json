@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node --trace-warnings src/server.js",
-    "watch": "NODE_ENV=development nodemon src/server.js",
+    "watch": "nodemon src/server.js",
     "watch-shared": "NODE_ENV=development-shared nodemon src/server.js",
     "test": "jest --config jest.config.js __test__ && eslint .",
     "load-test": "node load-test/index.js"
