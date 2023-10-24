@@ -1,5 +1,7 @@
 {
-  "Parameters": {},
+  "Parameters": {
+    "OnSwitch": "false"
+  },
   "Tags": {
     "Project": "aft",
     "Environment": "live"

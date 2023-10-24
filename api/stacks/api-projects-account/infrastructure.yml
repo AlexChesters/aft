@@ -4,6 +4,16 @@ Parameters:
     Description: ID of the AMI to launch
     Type: AWS::EC2::Image::Id
     Default: ami-037ac169954621436
+  OnSwitch:
+    Type: String
+    Default: "true"
+    AllowedValues:
+      - "false"
+      - "true"
+    Description: Whether or not the service should be turned on (otherwise removes all instances, load balancer rules etc)
+Conditions:
+  OnSwitch:
+    !Equals ["true", !Ref OnSwitch]
 Resources:
   TestUserPool:
     Type: AWS::Cognito::UserPool
@@ -335,8 +345,8 @@ Resources:
         MaxBatchSize: 1
         MinInstancesInService: 0
     Properties:
-      DesiredCapacity: 0
-      MaxSize: 0
+      DesiredCapacity: !If [OnSwitch, 1, 0]
+      MaxSize: !If [OnSwitch, 1, 0]
       MinSize: 0
       MixedInstancesPolicy:
         InstancesDistribution:
@@ -379,6 +389,7 @@ Resources:
       VpcId: !ImportValue vpc-id
   ListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Condition: OnSwitch
     Properties:
       Actions:
         - TargetGroupArn: !Ref TargetGroup
@@ -391,6 +402,7 @@ Resources:
       Priority: 3
   SignUpAlarm:
     Type: AWS::CloudWatch::Alarm
+    Condition: OnSwitch
     Properties:
       AlarmActions:
         - !ImportValue notification-topic
