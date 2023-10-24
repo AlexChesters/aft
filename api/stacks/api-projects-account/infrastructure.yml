@@ -335,8 +335,8 @@ Resources:
         MaxBatchSize: 1
         MinInstancesInService: 0
     Properties:
-      DesiredCapacity: 1
-      MaxSize: 1
+      DesiredCapacity: 0
+      MaxSize: 0
       MinSize: 0
       MixedInstancesPolicy:
         InstancesDistribution:
