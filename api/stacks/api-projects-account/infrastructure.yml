@@ -241,6 +241,7 @@ Resources:
       RetentionInDays: 7
   IAMRole:
     Type: AWS::IAM::Role
+    Condition: OnSwitch
     Properties:
       AssumeRolePolicyDocument:
         Statement:
@@ -300,12 +301,14 @@ Resources:
                 Resource:
                   - arn:aws:ssm:eu-west-1:561049784655:parameter/aft-avwx-secret
   IAMInstanceProfile:
+    Condition: OnSwitch
     Type: AWS::IAM::InstanceProfile
     Properties:
       Roles:
         - !Ref IAMRole
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
+    Condition: OnSwitch
     Properties:
       GroupDescription: security group for aft
       SecurityGroupEgress:
@@ -329,6 +332,7 @@ Resources:
       VpcId: !ImportValue vpc-id
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
+    Condition: OnSwitch
     Properties:
       LaunchTemplateData:
         IamInstanceProfile:
@@ -339,14 +343,15 @@ Resources:
           - !Ref InstanceSecurityGroup
   AutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
+    Condition: OnSwitch
     UpdatePolicy:
       AutoScalingRollingUpdate:
         PauseTime: PT15S
         MaxBatchSize: 1
         MinInstancesInService: 0
     Properties:
-      DesiredCapacity: !If [OnSwitch, 1, 0]
-      MaxSize: !If [OnSwitch, 1, 0]
+      DesiredCapacity: 1
+      MaxSize: 1
       MinSize: 0
       MixedInstancesPolicy:
         InstancesDistribution:
@@ -372,6 +377,7 @@ Resources:
         - !ImportValue private-subnet-two-id
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Condition: OnSwitch
     Properties:
       HealthCheckIntervalSeconds: 15
       HealthCheckPath: /aft/status
