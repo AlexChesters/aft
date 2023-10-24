@@ -160,6 +160,15 @@ Resources:
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1
       TableName: aft-test-table
+  ChecklistTableBackupBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: aft-live-table-backups
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
   ChecklistTable:
     Type: AWS::DynamoDB::Table
     DeletionPolicy: Retain
