@@ -3,7 +3,7 @@ Parameters:
   ImageId:
     Description: ID of the AMI to launch
     Type: AWS::EC2::Image::Id
-    Default: ami-037ac169954621436
+    Default: ami-0046a0c0a66dca80e
   OnSwitch:
     Type: String
     Default: "true"
