@@ -172,6 +172,8 @@ Resources:
       TableName: aft-test-table
   ChecklistTableBackupBucket:
     Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Properties:
       BucketName: aft-live-table-backups
       PublicAccessBlockConfiguration:
