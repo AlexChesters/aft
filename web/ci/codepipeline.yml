@@ -23,7 +23,7 @@ Resources:
             Principal:
               Service: codebuild.amazonaws.com
       ManagedPolicyArns:
-        - !ImportValue ci-infrastructure-codebuild-base-policy
+        - !ImportValue ci-infrastructure-codebuild-base-iam-policy
       Policies:
         - PolicyName: test-aft-codebuild-s3-policy
           PolicyDocument:
@@ -81,7 +81,7 @@ Resources:
             Principal:
               Service: codebuild.amazonaws.com
       ManagedPolicyArns:
-        - !ImportValue ci-infrastructure-codebuild-base-policy
+        - !ImportValue ci-infrastructure-codebuild-base-iam-policy
       Policies:
         - PolicyName: live-aft-codebuild-policy
           PolicyDocument:
@@ -134,10 +134,10 @@ Resources:
     Properties:
       ArtifactStore:
         Type: S3
-        Location: !ImportValue ci-infrastructure-build-artifacts-bucket-name
+        Location: !ImportValue ci-infrastructure-artifacts-bucket-name
       Name: aft-web
       RestartExecutionOnUpdate: true
-      RoleArn: !ImportValue ci-infrastructure-codepipeline-base-execution-role
+      RoleArn: !ImportValue ci-infrastructure-codepipeline-base-execution-iam-role
       Stages:
         - Name: Source
           Actions:
@@ -151,7 +151,7 @@ Resources:
               RunOrder: 1
               Name: Clone-From-GitHub
               Configuration:
-                ConnectionArn: !ImportValue ci-infrastructure-codestar-connection
+                ConnectionArn: !ImportValue ci-infrastructure-github-codestar-connection
                 FullRepositoryId: AlexChesters/aft
                 BranchName: main
                 OutputArtifactFormat: CODE_ZIP

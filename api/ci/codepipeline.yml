@@ -17,7 +17,7 @@ Resources:
   #             Service:
   #               - codebuild.amazonaws.com
   #     ManagedPolicyArns:
-  #       - !ImportValue ci-infrastructure-codebuild-base-policy
+  #       - !ImportValue ci-infrastructure-codebuild-base-iam-policy
   #     Policies:
   #       - PolicyName: base-images-policy
   #         PolicyDocument:
@@ -64,7 +64,7 @@ Resources:
   #   Properties:
   #     Artifacts:
   #       Type: CODEPIPELINE
-  #       Location: !ImportValue ci-infrastructure-build-artifacts-bucket-name
+  #       Location: !ImportValue ci-infrastructure-artifacts-bucket-name
   #       Path: /artifacts/aft-api-build/
   #       Packaging: NONE
   #       Name: build
@@ -85,10 +85,10 @@ Resources:
     Properties:
       ArtifactStore:
         Type: S3
-        Location: !ImportValue ci-infrastructure-build-artifacts-bucket-name
+        Location: !ImportValue ci-infrastructure-artifacts-bucket-name
       Name: aft-api
       RestartExecutionOnUpdate: true
-      RoleArn: !ImportValue ci-infrastructure-codepipeline-base-execution-role
+      RoleArn: !ImportValue ci-infrastructure-codepipeline-base-execution-iam-role
       Stages:
         - Name: Source
           Actions:
@@ -103,7 +103,7 @@ Resources:
               Name: Clone-From-GitHub
               Namespace: SourceVariables
               Configuration:
-                ConnectionArn: !ImportValue ci-infrastructure-codestar-connection
+                ConnectionArn: !ImportValue ci-infrastructure-github-codestar-connection
                 FullRepositoryId: AlexChesters/aft
                 BranchName: !Ref Branch
                 OutputArtifactFormat: CODE_ZIP
@@ -136,7 +136,7 @@ Resources:
                 ActionMode: CREATE_UPDATE
                 Capabilities: CAPABILITY_NAMED_IAM
                 StackName: aft-api
-                RoleArn: !ImportValue ci-infrastructure-codepipeline-base-cloudformation-role
+                RoleArn: !ImportValue ci-infrastructure-codepipeline-base-cloudformation-iam-role
                 TemplatePath: GitHubSource::api/stacks/api-projects-account/infrastructure.yml
                 TemplateConfiguration: GitHubSource::api/stacks/api-projects-account/parameters/infrastructure.json
                 # ParameterOverrides: |
